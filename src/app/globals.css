@@ -34,3 +34,9 @@
     @apply text-[14px] font-normal leading-[150%] md:text-[16px] md:leading-[28px];
   }
 }
+
+@layer components {
+  .link {
+    @apply mx-1 text-blue-600 underline hover:text-blue-500;
+  }
+}
