@@ -1,5 +1,6 @@
 import PointCard from "@/components/PointCard";
 import Banner from "@/shared/Banner";
+import Footer from "@/shared/Footer";
 import Navbar from "@/shared/Navbar";
 import { keyFeature } from "@/staticData";
 
@@ -31,6 +32,7 @@ const HomePage = () => {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 };

@@ -9,7 +9,7 @@ const Point = ({ children }) => {
         src={pointerBg}
         alt="pointer background"
       />
-      <div className="absolute inset-0 z-20 flex items-center justify-center text-lg">
+      <div className="absolute inset-0 z-20 flex items-center justify-center text-xl">
         {children}
       </div>
     </div>
