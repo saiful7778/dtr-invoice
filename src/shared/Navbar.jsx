@@ -3,7 +3,7 @@ import Image from "next/image";
 import siteLogo from "../../public/site-logo.png";
 import Link from "next/link";
 import { navLinks } from "@/staticData";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import cn from "@/lib/utils/cn";
 import { Button } from "keep-react";
 import { LuMenuSquare } from "react-icons/lu";
@@ -11,11 +11,14 @@ import { useState } from "react";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
+  const router = useRouter();
+
   const renderNavLink = navLinks.map((nav, idx) => (
     <li key={"nav-link" + idx}>
       <NavLink path={nav.path}>{nav.navName}</NavLink>
     </li>
   ));
+
   return (
     <nav className="bg-tint-blue p-2 text-gray">
       <div className="container flex flex-wrap items-center justify-between gap-2">
@@ -34,6 +37,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           <ul className="hidden items-center gap-3 md:flex">{renderNavLink}</ul>
           <Button
+            onClick={() => router.push("/#contact")}
             className="rounded-full bg-transparent px-6 text-accent hover:bg-transparent hover:text-gray max-[374px]:hidden"
             size="xs"
             variant="outline"
