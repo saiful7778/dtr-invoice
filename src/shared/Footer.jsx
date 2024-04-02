@@ -8,7 +8,7 @@ const Footer = () => {
   const date = new Date();
   return (
     <footer>
-      <div className="bg-tint-blue text-gray">
+      <div className="text-gray-100 bg-tint-blue">
         <div className="container flex flex-col justify-between gap-6 px-2 py-20 md:flex-row">
           <div className="w-full md:w-1/2">
             <div className="mb-4 flex items-center gap-2">

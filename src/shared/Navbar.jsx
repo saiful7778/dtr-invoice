@@ -20,7 +20,7 @@ const Navbar = () => {
   ));
 
   return (
-    <nav className="bg-tint-blue p-2 text-gray">
+    <nav className="text-gray-100 bg-tint-blue p-2">
       <div className="container flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <Image
@@ -38,7 +38,7 @@ const Navbar = () => {
           <ul className="hidden items-center gap-3 md:flex">{renderNavLink}</ul>
           <Button
             onClick={() => router.push("/#contact")}
-            className="rounded-full bg-transparent px-6 text-accent hover:bg-transparent hover:text-gray max-[374px]:hidden"
+            className="hover:text-gray-100 rounded-full bg-transparent px-6 text-accent hover:bg-transparent max-[374px]:hidden"
             size="xs"
             variant="outline"
             color="primary"
@@ -59,7 +59,7 @@ const Navbar = () => {
           <div className="w-full flex-shrink-0 flex-grow p-2 text-center">
             <ul className="space-y-2 p-2">{renderNavLink}</ul>
             <Button
-              className="mx-auto rounded-full bg-transparent px-6 text-accent hover:bg-transparent hover:text-gray min-[374px]:hidden"
+              className="hover:text-gray-100 mx-auto rounded-full bg-transparent px-6 text-accent hover:bg-transparent min-[374px]:hidden"
               size="xs"
               variant="outline"
               color="primary"

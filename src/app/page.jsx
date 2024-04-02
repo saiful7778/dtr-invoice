@@ -82,7 +82,7 @@ const HomePage = () => {
         </section>
         <section
           id="contact"
-          className="container mb-16 flex h-[600px] flex-col items-center justify-between overflow-hidden rounded-md bg-tint-blue text-gray shadow-md md:w-4/5 md:flex-row"
+          className="text-gray-100 container mb-16 flex h-[600px] flex-col items-center justify-between overflow-hidden rounded-md bg-tint-blue shadow-md md:w-4/5 md:flex-row"
         >
           <div className="relative h-full w-full md:w-1/2">
             <Image

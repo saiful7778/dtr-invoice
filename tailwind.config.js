@@ -15,7 +15,6 @@ module.exports = {
         "tint-blue": "#1C1E53",
         "dark-blue": "#282938",
         yellow: "#FCD980",
-        gray: "#F4F6FC",
         accent: "#EEF4FA",
       },
       container: {
