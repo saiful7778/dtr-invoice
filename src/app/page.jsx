@@ -1,3 +1,4 @@
+import Banner from "@/shared/Banner";
 import Navbar from "@/shared/Navbar";
 
 const HomePage = () => {
@@ -5,6 +6,7 @@ const HomePage = () => {
     <>
       <header>
         <Navbar />
+        <Banner />
       </header>
     </>
   );
