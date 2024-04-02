@@ -4,7 +4,7 @@ import { Button } from "keep-react";
 
 const Banner = () => {
   return (
-    <div className="min-h-[91vh] bg-tint-blue text-gray">
+    <section className="min-h-[91vh] bg-tint-blue text-gray">
       <div className="container flex min-h-[90vh] w-full flex-col items-center justify-between gap-4 p-2 lg:flex-row">
         <div className="w-full lg:w-1/2">
           <h1>
@@ -30,7 +30,7 @@ const Banner = () => {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

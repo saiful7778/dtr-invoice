@@ -6,13 +6,11 @@
 @layer components {
   h1,
   h2,
-  h3 {
-    @apply font-semibold;
-  }
+  h3,
   h4,
   h5,
   h6 {
-    @apply font-medium;
+    @apply font-semibold;
   }
   h1 {
     @apply text-[40px] leading-[130%] md:text-[54px] md:leading-[74px];
@@ -30,9 +28,9 @@
     @apply text-[16px] leading-[150%] md:text-[32px] md:leading-[48px];
   }
   h6 {
-    @apply text-[14px] leading-[150%] md:text-[24px] md:leading-[36px];
+    @apply text-[16px] leading-[150%] md:text-[24px] md:leading-[36px];
   }
   p {
-    @apply text-[16px] font-normal leading-[150%] md:leading-[28px];
+    @apply text-[14px] font-normal leading-[150%] md:text-[16px] md:leading-[28px];
   }
 }
