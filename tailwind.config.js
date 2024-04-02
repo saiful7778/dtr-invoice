@@ -4,7 +4,10 @@ module.exports = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/shared/**/*.{jsx,tsx}",
+    "./node_modules/keep-react/**/*.{js,jsx,ts,tsx}",
   ],
+  presets: [require("keep-react/preset")],
   theme: {
     extend: {
       colors: {
@@ -14,6 +17,9 @@ module.exports = {
         yellow: "#FCD980",
         gray: "#F4F6FC",
         accent: "#EEF4FA",
+      },
+      container: {
+        center: true,
       },
     },
   },
