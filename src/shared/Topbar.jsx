@@ -1,7 +1,7 @@
 "use client";
 // import Button from "@/components/utilities/Button";
 import siteLogo from "../../public/site-logo.png";
-// import { IoSunnyOutline } from "react-icons/io5";
+import { IoSunnyOutline } from "react-icons/io5";
 import { LuMenuSquare } from "react-icons/lu";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,7 +9,7 @@ import { Button } from "keep-react";
 import useStateData from "@/hooks/useStateData";
 
 const Topbar = () => {
-  const { handleSidebar } = useStateData();
+  const { handleSidebar, handleTheme } = useStateData();
 
   return (
     <div className="fixed left-0 top-0 z-50 w-full">
@@ -39,9 +39,15 @@ const Topbar = () => {
           </Link>
         </div>
         <div>
-          {/* <Button onClick={handleTheme} shape="icon">
+          <Button
+            onClick={handleTheme}
+            className="size-7"
+            shape="icon"
+            size="xs"
+            color="primary"
+          >
             <IoSunnyOutline size={18} />
-          </Button> */}
+          </Button>
         </div>
       </div>
     </div>
