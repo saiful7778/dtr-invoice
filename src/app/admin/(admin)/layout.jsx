@@ -8,7 +8,7 @@ const ClientAdminLayout = ({ children }) => {
   return (
     <main
       className={cn(
-        "mt-10 w-full p-2 duration-300",
+        "mt-[42px] w-full p-2 duration-300",
         sidebar ? "md:ml-36" : "md:ml-[43px]",
       )}
     >
