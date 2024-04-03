@@ -1,5 +1,6 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import SessionContextProvider from "@/context/SessionContext";
 
 const poppins = Poppins({
   weight: ["700", "600", "500", "400"],
@@ -14,7 +15,9 @@ export const metadata = {
 const RootLayout = ({ children }) => {
   return (
     <html lang="en">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <SessionContextProvider>{children}</SessionContextProvider>
+      </body>
     </html>
   );
 };
