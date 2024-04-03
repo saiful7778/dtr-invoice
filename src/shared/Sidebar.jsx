@@ -21,7 +21,7 @@ const Sidebar = () => {
         sidebar ? "w-36" : "max-sm:-left-full md:w-[43px]",
       )}
     >
-      <nav className="mt-10 p-1.5">
+      <nav className="mt-[42px] p-1.5">
         <ul className="flex w-full flex-col gap-2">
           <SidebarItem
             path="/admin/dashboard"

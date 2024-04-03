@@ -5,11 +5,13 @@ import { IoSunnyOutline } from "react-icons/io5";
 import { LuMenuSquare } from "react-icons/lu";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "keep-react";
+import { Avatar, Button, Popover, Spinner } from "keep-react";
 import useStateData from "@/hooks/useStateData";
+import { signOut, useSession } from "next-auth/react";
 
 const Topbar = () => {
   const { handleSidebar, handleTheme } = useStateData();
+  const { data, status } = useSession();
 
   return (
     <div className="fixed left-0 top-0 z-50 w-full">
@@ -38,7 +40,7 @@ const Topbar = () => {
             DTR-Invoice
           </Link>
         </div>
-        <div>
+        <div className="flex items-center gap-2">
           <Button
             onClick={handleTheme}
             className="size-7"
@@ -48,6 +50,36 @@ const Topbar = () => {
           >
             <IoSunnyOutline size={18} />
           </Button>
+          {status === "loading" ? (
+            <Spinner color="info" />
+          ) : (
+            status === "authenticated" && (
+              <Popover placement="bottom-end">
+                <Popover.Action className="p-0">
+                  <Avatar
+                    className="bg-gray-300"
+                    size="md"
+                    shape="circle"
+                    img={data?.user?.image}
+                  />
+                </Popover.Action>
+                <Popover.Content className="z-20 rounded bg-white p-2 shadow">
+                  <ul className="text-xs text-gray-500">
+                    <li>Name: {data?.user?.name}</li>
+                    <li>Email: {data?.user?.email}</li>
+                  </ul>
+                  <Button
+                    onClick={() => signOut()}
+                    className="w-full py-1"
+                    color="error"
+                    size="xs"
+                  >
+                    Logout
+                  </Button>
+                </Popover.Content>
+              </Popover>
+            )
+          )}
         </div>
       </div>
     </div>
