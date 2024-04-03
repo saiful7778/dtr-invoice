@@ -5,12 +5,14 @@ import Link from "next/link";
 import { navLinks } from "@/staticData";
 import { usePathname, useRouter } from "next/navigation";
 import cn from "@/lib/utils/cn";
-import { Button } from "keep-react";
+import { Avatar, Button, Popover, Spinner } from "keep-react";
 import { LuMenuSquare } from "react-icons/lu";
 import { useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
+  const { data, status } = useSession();
   const router = useRouter();
 
   const renderNavLink = navLinks.map((nav, idx) => (
@@ -20,7 +22,7 @@ const Navbar = () => {
   ));
 
   return (
-    <nav className="text-gray-100 bg-tint-blue p-2">
+    <nav className="bg-tint-blue p-2 text-gray-100">
       <div className="container flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <Image
@@ -38,13 +40,50 @@ const Navbar = () => {
           <ul className="hidden items-center gap-3 md:flex">{renderNavLink}</ul>
           <Button
             onClick={() => router.push("/#contact")}
-            className="hover:text-gray-100 rounded-full bg-transparent px-6 text-accent hover:bg-transparent max-[374px]:hidden"
+            className="rounded-full bg-transparent px-6 text-accent hover:bg-transparent hover:text-gray-100 max-[374px]:hidden"
             size="xs"
             variant="outline"
             color="primary"
           >
             Contact us
           </Button>
+          {status === "loading" ? (
+            <Spinner color="info" />
+          ) : (
+            status === "authenticated" && (
+              <Popover placement="bottom-end">
+                <Popover.Action className="p-0">
+                  <Avatar
+                    className="bg-gray-300"
+                    size="md"
+                    shape="circle"
+                    img={data?.user?.image}
+                  />
+                </Popover.Action>
+                <Popover.Content className="z-20 rounded bg-white p-2 shadow">
+                  <ul className="text-xs text-gray-500">
+                    <li>Name: {data?.user?.name}</li>
+                    <li>Email: {data?.user?.email}</li>
+                  </ul>
+
+                  <Link
+                    className="my-1 block w-full rounded p-1 text-center text-sm hover:bg-gray-300"
+                    href="/admin/dashboard"
+                  >
+                    Dashboard
+                  </Link>
+                  <Button
+                    onClick={() => signOut()}
+                    className="w-full py-1"
+                    color="error"
+                    size="xs"
+                  >
+                    Logout
+                  </Button>
+                </Popover.Content>
+              </Popover>
+            )
+          )}
           <Button
             onClick={() => setMenu((prop) => !prop)}
             className="md:hidden"
@@ -59,7 +98,7 @@ const Navbar = () => {
           <div className="w-full flex-shrink-0 flex-grow p-2 text-center">
             <ul className="space-y-2 p-2">{renderNavLink}</ul>
             <Button
-              className="hover:text-gray-100 mx-auto rounded-full bg-transparent px-6 text-accent hover:bg-transparent min-[374px]:hidden"
+              className="mx-auto rounded-full bg-transparent px-6 text-accent hover:bg-transparent hover:text-gray-100 min-[374px]:hidden"
               size="xs"
               variant="outline"
               color="primary"
