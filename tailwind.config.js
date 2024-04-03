@@ -6,6 +6,7 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/shared/**/*.{jsx,tsx}",
     "./node_modules/keep-react/**/*.{js,jsx,ts,tsx}",
+    "./src/lib/config/alert.config.js",
   ],
   presets: [require("keep-react/preset")],
   theme: {
