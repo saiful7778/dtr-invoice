@@ -6,11 +6,11 @@ export const metadata = {
   description: "This is user login page",
 };
 
-const LoginPage = () => {
+const LoginPage = ({ searchParams }) => {
   return (
     <>
       <h4 className="text-center">Login</h4>
-      <LoginForm />
+      <LoginForm searchParams={searchParams} />
       <p className="mt-2 text-center">
         Don{`'`}t have an account?
         <Link className="link" href="/authentication/register">
