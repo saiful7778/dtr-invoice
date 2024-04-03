@@ -1,5 +1,20 @@
-const AdminLayout = ({ children }) => {
-  return <div>{children}</div>;
+"use client";
+import useStateData from "@/hooks/useStateData";
+import cn from "@/lib/utils/cn";
+
+const ClientAdminLayout = ({ children }) => {
+  const { sidebar } = useStateData();
+
+  return (
+    <main
+      className={cn(
+        "mt-10 w-full p-2 duration-300",
+        sidebar ? "md:ml-36" : "md:ml-[43px]",
+      )}
+    >
+      {children}
+    </main>
+  );
 };
 
-export default AdminLayout;
+export default ClientAdminLayout;
