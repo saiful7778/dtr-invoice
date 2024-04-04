@@ -8,11 +8,13 @@ const ClientAdminLayout = ({ children }) => {
   return (
     <main
       className={cn(
-        "mt-[42px] w-full p-2 duration-300",
+        "mt-[42px] p-2 duration-300",
         sidebar ? "md:ml-36" : "md:ml-[43px]",
       )}
     >
-      {children}
+      <div className="rounded border border-gray-400 bg-gray-300 p-2 shadow-md dark:border-gray-700 dark:bg-gray-800">
+        {children}
+      </div>
     </main>
   );
 };
