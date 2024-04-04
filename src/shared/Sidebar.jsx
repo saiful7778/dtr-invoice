@@ -10,6 +10,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { MdOutlineInventory2 } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
+import { FaFileInvoiceDollar } from "react-icons/fa";
 import useStateData from "@/hooks/useStateData";
 
 const Sidebar = () => {
@@ -37,6 +38,13 @@ const Sidebar = () => {
             icon={<MdOutlineInventory2 />}
           >
             Inventory
+          </SidebarItem>
+          <SidebarItem
+            path="/admin/invoice"
+            textShow={sidebar}
+            icon={<FaFileInvoiceDollar />}
+          >
+            Invoice
           </SidebarItem>
           <hr className="border-gray-400 dark:border-gray-700" />
           <SidebarItem
