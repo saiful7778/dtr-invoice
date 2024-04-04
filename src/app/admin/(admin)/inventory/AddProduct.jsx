@@ -1,5 +1,7 @@
 "use client";
 import { Input } from "@/components/formik/Input";
+import createProduct from "@/lib/actions/product/createProduct";
+import Alert from "@/lib/config/alert.config";
 import { addProductSchema } from "@/lib/schemas/Product";
 import { Form, Formik } from "formik";
 import { Button, Spinner } from "keep-react";
@@ -23,8 +25,29 @@ const AddProduct = () => {
   };
 
   const handleSubmit = async (e, { resetForm }) => {
-    console.log(e);
+    setSpinner(true);
     const reset = handleReset(resetForm);
+    try {
+      const productData = {
+        productName: e.productName,
+        quantity: e.quantity,
+        cost: e.cost,
+        sell: e.sell,
+      };
+      await createProduct(productData);
+      Alert.fire({
+        icon: "success",
+        title: "Product is created!",
+      });
+    } catch (err) {
+      console.error(err);
+      Alert.fire({
+        icon: "error",
+        text: "Something went wrong",
+      });
+    } finally {
+      reset();
+    }
   };
 
   return (
