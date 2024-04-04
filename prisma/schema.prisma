@@ -23,13 +23,3 @@ enum Role {
   user
   admin
 }
-
-model product {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  productName String
-  quantity    Int
-  cost        Int
-  sell        Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
