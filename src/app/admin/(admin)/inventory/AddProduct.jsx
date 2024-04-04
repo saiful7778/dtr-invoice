@@ -1,6 +1,6 @@
 "use client";
 import { Input } from "@/components/formik/Input";
-import createProduct from "@/lib/actions/product/createProduct";
+import createData from "@/lib/CURD/createData";
 import Alert from "@/lib/config/alert.config";
 import { addProductSchema } from "@/lib/schemas/Product";
 import { Form, Formik } from "formik";
@@ -34,11 +34,18 @@ const AddProduct = () => {
         cost: e.cost,
         sell: e.sell,
       };
-      await createProduct(productData);
-      Alert.fire({
-        icon: "success",
-        title: "Product is created!",
-      });
+      const res = await createData("/product", productData);
+      if (res.success) {
+        Alert.fire({
+          icon: "success",
+          title: "Product is created!",
+        });
+      } else {
+        Alert.fire({
+          icon: "error",
+          text: "Something went wrong",
+        });
+      }
     } catch (err) {
       console.error(err);
       Alert.fire({
