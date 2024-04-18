@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import bannerbg from "../../public/banner-bg.png";
-import { Button } from "keep-react";
 import { useRouter } from "next/navigation";
+import Button from "@/components/Button";
 
 const Banner = () => {
   const router = useRouter();
@@ -19,11 +19,7 @@ const Banner = () => {
             Inventory, and More for Small Businesses Everywhere!
           </p>
           <div className="flex">
-            <Button
-              onClick={() => router.push("/admin/dashboard")}
-              size="sm"
-              color="primary"
-            >
+            <Button href="/admin/dashboard" variant="primary">
               Your Dashboard
             </Button>
           </div>

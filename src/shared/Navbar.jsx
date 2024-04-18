@@ -5,10 +5,11 @@ import Link from "next/link";
 import { navLinks } from "@/staticData";
 import { usePathname, useRouter } from "next/navigation";
 import cn from "@/lib/utils/cn";
-import { Avatar, Button, Popover, Spinner } from "keep-react";
+import { Avatar, Popover, Spinner } from "keep-react";
 import { LuMenuSquare } from "react-icons/lu";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
+import Button from "@/components/Button";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
@@ -39,50 +40,52 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           <ul className="hidden items-center gap-3 md:flex">{renderNavLink}</ul>
           <Button
-            onClick={() => router.push("/#contact")}
-            className="rounded-full bg-transparent px-6 text-accent hover:bg-transparent hover:text-gray-100 max-[374px]:hidden"
-            size="xs"
-            variant="outline"
-            color="primary"
+            href="/#contact"
+            className="rounded-full max-[374px]:hidden"
+            variant="primary-outline"
           >
             Contact us
           </Button>
           {status === "loading" ? (
             <Spinner color="info" />
-          ) : (
-            status === "authenticated" && (
-              <Popover placement="bottom-end">
-                <Popover.Action className="p-0">
-                  <Avatar
-                    className="bg-gray-300"
-                    size="md"
-                    shape="circle"
-                    img={data?.user?.image}
-                  />
-                </Popover.Action>
-                <Popover.Content className="z-20 rounded bg-white p-2 shadow">
-                  <ul className="text-xs text-gray-500">
-                    <li>Name: {data?.user?.name}</li>
-                    <li>Email: {data?.user?.email}</li>
-                  </ul>
+          ) : status === "authenticated" ? (
+            <Popover placement="bottom-end">
+              <Popover.Action className="p-0">
+                <Avatar
+                  className="bg-gray-300"
+                  size="md"
+                  shape="circle"
+                  img={data?.user?.image}
+                />
+              </Popover.Action>
+              <Popover.Content className="z-20 rounded bg-white p-2 shadow">
+                <ul className="text-xs text-gray-500">
+                  <li>Name: {data?.user?.name}</li>
+                  <li>Email: {data?.user?.email}</li>
+                </ul>
 
-                  <Link
-                    className="my-1 block w-full rounded p-1 text-center text-sm hover:bg-gray-300"
-                    href="/admin/dashboard"
-                  >
-                    Dashboard
-                  </Link>
-                  <Button
-                    onClick={() => signOut()}
-                    className="w-full py-1"
-                    color="error"
-                    size="xs"
-                  >
-                    Logout
-                  </Button>
-                </Popover.Content>
-              </Popover>
-            )
+                <Link
+                  className="my-1 block w-full rounded p-1 text-center text-sm hover:bg-gray-300"
+                  href="/admin/dashboard"
+                >
+                  Dashboard
+                </Link>
+                <Button
+                  onClick={() => signOut()}
+                  className="w-full py-1"
+                  color="error"
+                  size="xs"
+                >
+                  Logout
+                </Button>
+              </Popover.Content>
+            </Popover>
+          ) : (
+            <>
+              <Button variant="primary" href="/authentication/login">
+                Login
+              </Button>
+            </>
           )}
           <Button
             onClick={() => setMenu((prop) => !prop)}
