@@ -3,7 +3,7 @@ import Image from "next/image";
 import siteLogo from "../../public/site-logo.png";
 import Link from "next/link";
 import { navLinks } from "@/staticData";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import cn from "@/lib/utils/cn";
 import { Avatar, Popover, Spinner } from "keep-react";
 import { LuMenuSquare } from "react-icons/lu";
@@ -14,7 +14,6 @@ import Button from "@/components/Button";
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
   const { data, status } = useSession();
-  const router = useRouter();
 
   const renderNavLink = navLinks.map((nav, idx) => (
     <li key={"nav-link" + idx}>
@@ -41,7 +40,7 @@ const Navbar = () => {
           <ul className="hidden items-center gap-3 md:flex">{renderNavLink}</ul>
           <Button
             href="/#contact"
-            className="rounded-full max-[374px]:hidden"
+            className="rounded-full max-md:hidden"
             variant="primary-outline"
           >
             Contact us
@@ -71,9 +70,9 @@ const Navbar = () => {
                   Dashboard
                 </Link>
                 <Button
-                  onClick={() => signOut()}
-                  className="w-full py-1"
-                  color="error"
+                  onClick={async () => await signOut()}
+                  className="w-full"
+                  variant="cancel"
                   size="xs"
                 >
                   Logout
@@ -81,11 +80,9 @@ const Navbar = () => {
               </Popover.Content>
             </Popover>
           ) : (
-            <>
-              <Button variant="primary" href="/authentication/login">
-                Login
-              </Button>
-            </>
+            <Button variant="primary" href="/authentication/login">
+              Login
+            </Button>
           )}
           <Button
             onClick={() => setMenu((prop) => !prop)}
@@ -101,10 +98,9 @@ const Navbar = () => {
           <div className="w-full flex-shrink-0 flex-grow p-2 text-center">
             <ul className="space-y-2 p-2">{renderNavLink}</ul>
             <Button
-              className="mx-auto rounded-full bg-transparent px-6 text-accent hover:bg-transparent hover:text-gray-100 min-[374px]:hidden"
-              size="xs"
-              variant="outline"
-              color="primary"
+              href="/#contact"
+              className="rounded-full"
+              variant="primary-outline"
             >
               Contact us
             </Button>
