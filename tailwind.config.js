@@ -7,6 +7,7 @@ module.exports = {
     "./src/shared/**/*.{jsx,tsx}",
     "./node_modules/keep-react/**/*.{js,jsx,ts,tsx}",
     "./src/lib/config/alert.config.js",
+    "./src/lib/styles/*.js",
   ],
   presets: [require("keep-react/preset")],
   theme: {
@@ -15,6 +16,7 @@ module.exports = {
         "royal-blue": "#2405F2",
         "tint-blue": "#1C1E53",
         "dark-blue": "#282938",
+        "accent-color": "#5454D4",
         yellow: "#FCD980",
         accent: "#EEF4FA",
       },
