@@ -8,6 +8,7 @@ export const metadata = {
 const InventoryPage = () => {
   return (
     <>
+      <h1 className="mb-2 text-3xl font-bold">Add product</h1>
       <AddProduct />
     </>
   );

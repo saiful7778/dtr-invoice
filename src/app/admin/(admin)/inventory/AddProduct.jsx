@@ -1,10 +1,11 @@
 "use client";
+import Button from "@/components/Button";
 import { Input } from "@/components/formik/Input";
 import createData from "@/lib/CURD/createData";
 import Alert from "@/lib/config/alert.config";
 import { addProductSchema } from "@/lib/schemas/Product";
 import { Form, Formik } from "formik";
-import { Button, Spinner } from "keep-react";
+import { Spinner } from "keep-react";
 import { useState } from "react";
 
 const AddProduct = () => {
@@ -27,6 +28,14 @@ const AddProduct = () => {
   const handleSubmit = async (e, { resetForm }) => {
     setSpinner(true);
     const reset = handleReset(resetForm);
+    if (!e.quantity || !e.cost || !e.sell) {
+      Alert.fire({
+        icon: "error",
+        title: "Please update data",
+      });
+      setSpinner(false);
+      return;
+    }
     try {
       const productData = {
         productName: e.productName,
@@ -63,43 +72,44 @@ const AddProduct = () => {
       validationSchema={addProductSchema}
       onSubmit={handleSubmit}
     >
-      <Form className="space-y-2">
-        <Input
-          name="productName"
-          type="text"
-          placeholder="Product name"
-          label="Product name"
-          disabled={spinner}
-          required
-        />
-        <Input
-          name="quantity"
-          type="number"
-          placeholder="Product quantity"
-          label="Product quantity"
-          disabled={spinner}
-          required
-        />
-        <Input
-          name="cost"
-          type="number"
-          placeholder="Product cost price"
-          label="Product cost price"
-          disabled={spinner}
-          required
-        />
-        <Input
-          name="sell"
-          type="number"
-          placeholder="Product sell price"
-          label="Product sell price"
-          disabled={spinner}
-          required
-        />
+      <Form>
+        <div className="flex flex-wrap gap-2">
+          <Input
+            name="productName"
+            type="text"
+            placeholder="Product name"
+            label="Product name"
+            disabled={spinner}
+            required
+          />
+          <Input
+            name="quantity"
+            type="number"
+            placeholder="Product quantity"
+            label="Product quantity"
+            disabled={spinner}
+            required
+          />
+          <Input
+            name="cost"
+            type="number"
+            placeholder="Product cost price"
+            label="Product cost price"
+            disabled={spinner}
+            required
+          />
+          <Input
+            name="sell"
+            type="number"
+            placeholder="Product sell price"
+            label="Product sell price"
+            disabled={spinner}
+            required
+          />
+        </div>
         <Button
-          className="w-full rounded-full"
-          color="primary"
-          size="sm"
+          className="mt-2 rounded-full"
+          variant="primary"
           disabled={spinner}
           type="submit"
         >
