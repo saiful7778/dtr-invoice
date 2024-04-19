@@ -45,7 +45,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="container p-8 text-center">
+      <div className="bg-gray-300 p-8 text-center dark:bg-gray-800">
         Copyright {date.getFullYear()}, All right reserved
       </div>
     </footer>
