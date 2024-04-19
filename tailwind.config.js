@@ -24,6 +24,9 @@ module.exports = {
       container: {
         center: true,
       },
+      animation: {
+        spinner: "spin 1500ms linear infinite",
+      },
     },
   },
   darkMode: "class",
