@@ -10,12 +10,14 @@ const Password = ({ placeholder, label, disabled, name, ...props }) => {
 
   return (
     <fieldset className="w-full max-w-md">
-      <Label htmlFor={inputId}>{label}</Label>
+      <Label htmlFor={inputId} className="dark:text-gray-200">
+        {label}
+      </Label>
       <div className="relative">
         <Input
           id={inputId}
           type={showPass ? "text" : "password"}
-          className="text-gray-100 mt-1 bg-transparent"
+          className="border border-gray-300 bg-transparent placeholder:text-gray-500 focus-visible:ring-gray-400 focus-visible:ring-offset-0 dark:border-gray-500 dark:text-white"
           placeholder={placeholder}
           disabled={disabled}
           {...field}
@@ -23,7 +25,7 @@ const Password = ({ placeholder, label, disabled, name, ...props }) => {
         />
         <button
           onClick={() => setShowPass((l) => !l)}
-          className="text-gray-500 absolute right-2 top-1/2 z-30 -translate-y-1/2 p-2"
+          className="absolute right-2 top-1/2 z-30 -translate-y-1/2 p-2 text-gray-500"
           type="button"
         >
           {showPass ? <IoIosEye size={25} /> : <IoIosEyeOff size={25} />}

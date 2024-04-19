@@ -23,7 +23,7 @@ const LoginPage = ({ searchParams }) => {
           </Link>
         </p>
       </div>
-      <div className="bg min-h-60 w-full p-6 text-center max-md:order-1 md:w-1/2">
+      <div className="bg min-h-60 w-full p-6 text-center text-white max-md:order-1 md:w-1/2">
         <h6 className="mb-4 text-4xl font-bold">Welcome back!</h6>
         <p>
           Please enter your credentials to <br /> access your account.

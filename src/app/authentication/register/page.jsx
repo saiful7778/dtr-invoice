@@ -11,7 +11,7 @@ export const metadata = {
 const RegisterPage = () => {
   return (
     <>
-      <div className="bg min-h-60 w-full p-2 text-center md:w-1/2 md:p-6">
+      <div className="bg min-h-60 w-full p-2 text-center text-white md:w-1/2 md:p-6">
         <h5 className="mb-4 text-4xl font-bold">
           Create an Account with DTR-Invoice
         </h5>

@@ -1,16 +1,16 @@
 "use client";
 // import Button from "@/components/utilities/Button";
 import siteLogo from "../../public/site-logo.png";
-import { IoSunnyOutline } from "react-icons/io5";
 import { LuMenuSquare } from "react-icons/lu";
 import Image from "next/image";
 import Link from "next/link";
 import { Avatar, Button, Popover, Spinner } from "keep-react";
 import useStateData from "@/hooks/useStateData";
 import { signOut, useSession } from "next-auth/react";
+import ThemeChange from "@/components/ThemeChange";
 
 const Topbar = () => {
-  const { handleSidebar, handleTheme } = useStateData();
+  const { handleSidebar } = useStateData();
   const { data, status } = useSession();
 
   return (
@@ -41,15 +41,7 @@ const Topbar = () => {
           </Link>
         </div>
         <div className="flex items-center gap-2">
-          <Button
-            onClick={handleTheme}
-            className="size-7"
-            shape="icon"
-            size="xs"
-            color="primary"
-          >
-            <IoSunnyOutline size={18} />
-          </Button>
+          <ThemeChange />
           {status === "loading" ? (
             <Spinner color="info" />
           ) : (

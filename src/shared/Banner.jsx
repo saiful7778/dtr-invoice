@@ -1,14 +1,11 @@
 "use client";
 import Image from "next/image";
 import bannerbg from "../../public/banner-bg.png";
-import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
 
 const Banner = () => {
-  const router = useRouter();
-
   return (
-    <section className="min-h-[91vh] bg-tint-blue text-gray-100">
+    <section className="min-h-[91vh] bg-gray-300 dark:bg-tint-blue">
       <div className="container flex min-h-[90vh] w-full flex-col items-center justify-between gap-4 p-2 lg:flex-row">
         <div className="w-full lg:w-1/2">
           <h1>

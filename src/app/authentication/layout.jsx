@@ -1,7 +1,7 @@
 const AuthenticationLayout = ({ children }) => {
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-gray-900 p-4 text-gray-100">
-      <div className="flex w-full max-w-4xl flex-col rounded border border-gray-700 bg-gray-800 md:flex-row">
+    <div className="bg flex min-h-screen w-full items-center justify-center p-4">
+      <div className="flex w-full max-w-4xl flex-col overflow-hidden rounded-md border border-royal-blue/10 bg-gray-50 shadow-xl dark:bg-gray-800 dark:text-gray-50 md:flex-row">
         {children}
       </div>
     </div>

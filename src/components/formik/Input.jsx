@@ -7,12 +7,11 @@ const InputComp = ({ placeholder, type, name, label, disabled, ...props }) => {
   const [field, { error, touched }] = useField({ name });
   return (
     <fieldset className="w-full max-w-md">
-      <Label htmlFor={inputID} className="dark:text-gray-100">
+      <Label htmlFor={inputID} className="dark:text-gray-200">
         {label}
       </Label>
       <Input
-        className="dark: mt-1 bg-transparent
-        text-gray-100"
+        className="border border-gray-300 bg-transparent placeholder:text-gray-500 focus-visible:ring-gray-400 focus-visible:ring-offset-0 dark:border-gray-500 dark:text-white"
         id={inputID}
         type={type}
         placeholder={placeholder}

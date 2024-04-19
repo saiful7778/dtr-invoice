@@ -10,6 +10,7 @@ import { LuMenuSquare } from "react-icons/lu";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Button from "@/components/Button";
+import ThemeChange from "@/components/ThemeChange";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
@@ -22,7 +23,7 @@ const Navbar = () => {
   ));
 
   return (
-    <nav className="bg-tint-blue p-2 text-gray-100">
+    <nav className="bg-gray-300 p-2 dark:bg-tint-blue">
       <div className="container flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <Image
@@ -45,6 +46,7 @@ const Navbar = () => {
           >
             Contact us
           </Button>
+          <ThemeChange />
           {status === "loading" ? (
             <Spinner color="info" />
           ) : status === "authenticated" ? (
@@ -80,30 +82,44 @@ const Navbar = () => {
               </Popover.Content>
             </Popover>
           ) : (
-            <Button variant="primary" href="/authentication/login">
+            <Button
+              className="max-sm:hidden"
+              variant="primary"
+              href="/authentication/login"
+            >
               Login
             </Button>
           )}
           <Button
             onClick={() => setMenu((prop) => !prop)}
             className="md:hidden"
-            shape="icon"
-            size="sm"
-            color="primary"
+            shape="icon-button"
+            variant="primary"
           >
             <LuMenuSquare size={25} />
           </Button>
         </div>
         {menu && (
-          <div className="w-full flex-shrink-0 flex-grow p-2 text-center">
-            <ul className="space-y-2 p-2">{renderNavLink}</ul>
-            <Button
-              href="/#contact"
-              className="rounded-full"
-              variant="primary-outline"
-            >
-              Contact us
-            </Button>
+          <div className="w-full flex-shrink-0 flex-grow space-y-2 p-2 text-center md:hidden">
+            <ul className="space-y-2">{renderNavLink}</ul>
+            <div>
+              <Button
+                href="/#contact"
+                className="inline-block rounded-full"
+                variant="primary-outline"
+              >
+                Contact us
+              </Button>
+            </div>
+            <div>
+              <Button
+                className="inline-block"
+                variant="primary"
+                href="/authentication/login"
+              >
+                Login
+              </Button>
+            </div>
           </div>
         )}
       </div>
