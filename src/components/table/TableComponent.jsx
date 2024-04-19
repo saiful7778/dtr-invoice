@@ -54,7 +54,7 @@ export const TableBody = ({ className, children }) => {
 
 export const TableRow = ({ children }) => {
   return (
-    <tr className="divide-x divide-gray-300 hover:bg-gray-300 dark:divide-gray-600 hover:dark:bg-gray-700/80">
+    <tr className="divide-x divide-gray-300 hover:bg-gray-50 dark:divide-gray-600 hover:dark:bg-gray-700/80">
       {children}
     </tr>
   );
