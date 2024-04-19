@@ -5,12 +5,13 @@ import Link from "next/link";
 import { navLinks } from "@/staticData";
 import { usePathname } from "next/navigation";
 import cn from "@/lib/utils/cn";
-import { Avatar, Popover, Spinner } from "keep-react";
+import { Avatar, Spinner } from "keep-react";
 import { LuMenuSquare } from "react-icons/lu";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Button from "@/components/Button";
 import ThemeChange from "@/components/ThemeChange";
+import PopOver from "@/components/PopOver";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
@@ -50,23 +51,31 @@ const Navbar = () => {
           {status === "loading" ? (
             <Spinner color="info" />
           ) : status === "authenticated" ? (
-            <Popover placement="bottom-end">
-              <Popover.Action className="p-0">
+            <PopOver
+              position="bottom-end"
+              buttonAction={
                 <Avatar
-                  className="bg-gray-300"
+                  className="border-2 border-gray-500 bg-transparent"
                   size="md"
                   shape="circle"
                   img={data?.user?.image}
                 />
-              </Popover.Action>
-              <Popover.Content className="z-20 rounded bg-white p-2 shadow">
-                <ul className="text-xs text-gray-500">
-                  <li>Name: {data?.user?.name}</li>
-                  <li>Email: {data?.user?.email}</li>
+              }
+            >
+              <>
+                <ul className="text-xs">
+                  <li>
+                    <span className="font-semibold">Name:</span>{" "}
+                    <span>{data?.user?.name}</span>
+                  </li>
+                  <li>
+                    <span className="font-semibold">Email:</span>{" "}
+                    <span>{data?.user?.email}</span>
+                  </li>
                 </ul>
 
                 <Link
-                  className="my-1 block w-full rounded p-1 text-center text-sm hover:bg-gray-300"
+                  className="my-1 block w-full rounded p-1 text-center text-sm hover:bg-gray-300 dark:hover:bg-gray-600"
                   href="/admin/dashboard"
                 >
                   Dashboard
@@ -79,8 +88,8 @@ const Navbar = () => {
                 >
                   Logout
                 </Button>
-              </Popover.Content>
-            </Popover>
+              </>
+            </PopOver>
           ) : (
             <Button
               className="max-sm:hidden"

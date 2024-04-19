@@ -4,10 +4,12 @@ import siteLogo from "../../public/site-logo.png";
 import { LuMenuSquare } from "react-icons/lu";
 import Image from "next/image";
 import Link from "next/link";
-import { Avatar, Button, Popover, Spinner } from "keep-react";
+import { Avatar, Spinner } from "keep-react";
 import useStateData from "@/hooks/useStateData";
 import { signOut, useSession } from "next-auth/react";
 import ThemeChange from "@/components/ThemeChange";
+import Button from "@/components/Button";
+import PopOver from "@/components/PopOver";
 
 const Topbar = () => {
   const { handleSidebar } = useStateData();
@@ -18,11 +20,10 @@ const Topbar = () => {
       <div className="flex items-center justify-between border border-gray-400 bg-gray-300 p-1 dark:border-gray-700 dark:bg-gray-800">
         <div className="flex items-center gap-2">
           <Button
-            className="ml-0.5 size-7"
             onClick={handleSidebar}
-            shape="icon"
-            size="xs"
-            color="primary"
+            className="ml-0.5"
+            shape="icon-button"
+            variant="primary"
           >
             <LuMenuSquare size={17} />
           </Button>
@@ -46,30 +47,44 @@ const Topbar = () => {
             <Spinner color="info" />
           ) : (
             status === "authenticated" && (
-              <Popover placement="bottom-end">
-                <Popover.Action className="p-0">
+              <PopOver
+                position="bottom-end"
+                buttonAction={
                   <Avatar
                     className="bg-gray-300"
                     size="md"
                     shape="circle"
                     img={data?.user?.image}
                   />
-                </Popover.Action>
-                <Popover.Content className="z-20 rounded bg-white p-2 shadow">
-                  <ul className="text-xs text-gray-500">
-                    <li>Name: {data?.user?.name}</li>
-                    <li>Email: {data?.user?.email}</li>
+                }
+              >
+                <>
+                  <ul className="text-xs">
+                    <li>
+                      <span className="font-semibold">Name:</span>{" "}
+                      <span>{data?.user?.name}</span>
+                    </li>
+                    <li>
+                      <span className="font-semibold">Email:</span>{" "}
+                      <span>{data?.user?.email}</span>
+                    </li>
                   </ul>
+                  <Link
+                    className="my-1 block w-full rounded p-1 text-center text-sm hover:bg-gray-300 dark:hover:bg-gray-600"
+                    href="/"
+                  >
+                    Home
+                  </Link>
                   <Button
-                    onClick={() => signOut()}
-                    className="w-full py-1"
-                    color="error"
+                    onClick={async () => await signOut()}
+                    className="mt-1 w-full"
+                    variant="cancel"
                     size="xs"
                   >
                     Logout
                   </Button>
-                </Popover.Content>
-              </Popover>
+                </>
+              </PopOver>
             )
           )}
         </div>
