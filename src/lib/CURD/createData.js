@@ -1,8 +1,6 @@
-import { baseUrl } from "../server.config";
-
 export default async function createData(apiRoute, inputData) {
   try {
-    const res = await fetch(baseUrl + apiRoute, {
+    const res = await fetch(process.env.API_URL + apiRoute, {
       method: "POST",
       headers: {
         "content-type": "application/json",
