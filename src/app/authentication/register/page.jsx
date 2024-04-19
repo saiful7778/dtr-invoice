@@ -2,6 +2,7 @@ import Link from "next/link";
 import RegisterForm from "./RegisterForm";
 import Image from "next/image";
 import BannerImage from "../../../../public/laptop-user.svg";
+import SocialAuth from "@/components/SocialAuth";
 
 export const metadata = {
   title: "Register - authentication",
@@ -24,10 +25,16 @@ const RegisterPage = () => {
       <div className="w-full p-4 md:w-1/2">
         <h4 className="text-center">Register</h4>
         <RegisterForm />
+        <SocialAuth />
         <p className="mt-2 text-center">
           Do you have an account?
           <Link className="link" href="/authentication/login">
             login
+          </Link>
+        </p>
+        <p className="text-center">
+          <Link className="link" href="/">
+            Go back to home
           </Link>
         </p>
       </div>
