@@ -7,6 +7,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.swal2-popup {
+  @apply bg-gray-100 text-gray-800 shadow-md dark:bg-gray-800 dark:text-gray-50;
+}
+
 @layer components {
   .popover svg {
     @apply fill-gray-50 dark:fill-gray-700;
