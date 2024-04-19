@@ -4,16 +4,25 @@ import { useField } from "formik";
 import { Input, Label } from "keep-react";
 import { useId } from "react";
 
-const InputComp = ({ placeholder, type, name, label, disabled, ...props }) => {
+const InputComp = ({
+  placeholder,
+  className,
+  inputClassName,
+  type,
+  name,
+  label,
+  disabled,
+  ...props
+}) => {
   const inputID = useId();
   const [field, { error, touched }] = useField({ name });
   return (
-    <fieldset className="w-full max-w-md">
+    <fieldset className={cn("w-full max-w-md", className)}>
       <Label htmlFor={inputID} className={input.label}>
         {label}
       </Label>
       <Input
-        className={cn(input.base, error && input.error)}
+        className={cn(input.base, inputClassName, error && input.error)}
         id={inputID}
         type={type}
         placeholder={placeholder}

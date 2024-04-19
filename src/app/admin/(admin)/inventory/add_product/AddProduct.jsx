@@ -83,6 +83,7 @@ const AddProduct = () => {
             required
           />
           <Input
+            className="max-w-xs"
             name="quantity"
             type="number"
             placeholder="Product quantity"
@@ -91,6 +92,7 @@ const AddProduct = () => {
             required
           />
           <Input
+            className="max-w-xs"
             name="cost"
             type="number"
             placeholder="Product cost price"
@@ -99,6 +101,7 @@ const AddProduct = () => {
             required
           />
           <Input
+            className="max-w-xs"
             name="sell"
             type="number"
             placeholder="Product sell price"
@@ -108,8 +111,8 @@ const AddProduct = () => {
           />
         </div>
         <Button
-          className="mt-2 rounded-full"
-          variant="primary"
+          className="mt-2"
+          variant="confirm"
           disabled={spinner}
           type="submit"
         >
