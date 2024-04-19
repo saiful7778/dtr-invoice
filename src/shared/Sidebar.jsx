@@ -32,13 +32,19 @@ const Sidebar = () => {
           >
             Deshboard
           </SidebarItem>
-          <SidebarItem
+          <SidebarDropdown
             path="/admin/inventory"
             textShow={sidebar}
             icon={<MdOutlineInventory2 />}
+            title="Inventory"
           >
-            Inventory
-          </SidebarItem>
+            <SidebarDropdownItem path="/admin/inventory/add_product">
+              Add Product
+            </SidebarDropdownItem>
+            <SidebarDropdownItem path="/admin/inventory/all_products">
+              All Products
+            </SidebarDropdownItem>
+          </SidebarDropdown>
           <SidebarItem
             path="/admin/invoice"
             textShow={sidebar}
@@ -127,7 +133,7 @@ const SidebarDropdown = ({ children, path, title, icon, textShow }) => {
               : "grid-rows-[0fr] opacity-0",
           )}
         >
-          <ul className="divide-y divide-gray-700 overflow-hidden border-b border-gray-700">
+          <ul className="divide-y divide-gray-600 overflow-hidden border-b border-gray-600">
             {children}
           </ul>
         </div>
@@ -150,10 +156,15 @@ const SidebarDropdown = ({ children, path, title, icon, textShow }) => {
 };
 
 const SidebarDropdownItem = ({ path, children }) => {
+  const pathName = usePathname();
+  const isActive = pathName.startsWith(path);
   return (
     <li>
       <Link
-        className="block w-full cursor-pointer px-2 py-1 text-xs hover:bg-gray-700"
+        className={cn(
+          "block w-full cursor-pointer px-2 py-1 text-xs hover:bg-gray-700",
+          isActive && "bg-gray-700",
+        )}
         href={path}
       >
         {children}
