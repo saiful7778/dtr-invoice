@@ -17,7 +17,7 @@ const Topbar = () => {
 
   return (
     <div className="fixed left-0 top-0 z-50 w-full">
-      <div className="flex items-center justify-between border border-gray-400 bg-gray-300 p-1 dark:border-gray-700 dark:bg-gray-800">
+      <div className="flex items-center justify-between border border-gray-300 bg-gray-200 p-1 dark:border-gray-700 dark:bg-gray-800">
         <div className="flex items-center gap-2">
           <Button
             onClick={handleSidebar}
@@ -25,7 +25,7 @@ const Topbar = () => {
             shape="icon-button"
             variant="primary"
           >
-            <LuMenuSquare size={17} />
+            <LuMenuSquare size={22} />
           </Button>
           <Image
             src={siteLogo}
@@ -51,7 +51,7 @@ const Topbar = () => {
                 position="bottom-end"
                 buttonAction={
                   <Avatar
-                    className="bg-gray-300"
+                    className="border-2 border-gray-500 bg-transparent"
                     size="md"
                     shape="circle"
                     img={data?.user?.image}

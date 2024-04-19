@@ -19,7 +19,7 @@ const Sidebar = () => {
   return (
     <div
       className={cn(
-        "fixed left-0 top-0 z-40 flex min-h-screen flex-col justify-between whitespace-nowrap border-r border-gray-400 bg-gray-300 shadow-md duration-300 dark:border-gray-700 dark:bg-gray-800",
+        "fixed left-0 top-0 z-40 flex min-h-screen flex-col justify-between whitespace-nowrap border-r border-gray-300 bg-gray-200 shadow-md duration-300 dark:border-gray-700 dark:bg-gray-800",
         sidebar ? "w-36" : "max-sm:-left-full md:w-[43px]",
       )}
     >
@@ -46,7 +46,7 @@ const Sidebar = () => {
           >
             Invoice
           </SidebarItem>
-          <hr className="border-gray-400 dark:border-gray-700" />
+          <hr className="border-gray-300 dark:border-gray-700" />
           <SidebarItem
             path="/admin/settings"
             textShow={sidebar}
@@ -65,7 +65,7 @@ const style = {
   active:
     "bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600 shadow",
   inActive:
-    "border-gray-400 hover:bg-gray-100 dark:border-gray-600 hover:dark:bg-gray-700",
+    "border-gray-300 hover:bg-gray-100 dark:border-gray-600 hover:dark:bg-gray-700",
 };
 
 const SidebarItem = ({ children, path, icon, textShow }) => {

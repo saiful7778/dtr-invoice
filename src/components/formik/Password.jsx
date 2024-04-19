@@ -2,6 +2,8 @@ import { useId, useState } from "react";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import { useField } from "formik";
 import { Input, Label } from "keep-react";
+import cn from "@/lib/utils/cn";
+import { input } from "@/lib/styles";
 
 const Password = ({ placeholder, label, disabled, name, ...props }) => {
   const [showPass, setShowPass] = useState(false);
@@ -10,14 +12,14 @@ const Password = ({ placeholder, label, disabled, name, ...props }) => {
 
   return (
     <fieldset className="w-full max-w-md">
-      <Label htmlFor={inputId} className="dark:text-gray-200">
+      <Label htmlFor={inputId} className={input.label}>
         {label}
       </Label>
       <div className="relative">
         <Input
           id={inputId}
           type={showPass ? "text" : "password"}
-          className="border border-gray-300 bg-transparent placeholder:text-gray-500 focus-visible:ring-gray-400 focus-visible:ring-offset-0 dark:border-gray-500 dark:text-white"
+          className={cn(input.base, error && input.error)}
           placeholder={placeholder}
           disabled={disabled}
           {...field}

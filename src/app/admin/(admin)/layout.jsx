@@ -12,7 +12,7 @@ const ClientAdminLayout = ({ children }) => {
         sidebar ? "md:ml-36" : "md:ml-[43px]",
       )}
     >
-      <div className="rounded border border-gray-400 bg-gray-300 p-2 shadow-md dark:border-gray-700 dark:bg-gray-800">
+      <div className="rounded border border-gray-300 bg-gray-200 p-2 shadow-md dark:border-gray-700 dark:bg-gray-800">
         {children}
       </div>
     </main>

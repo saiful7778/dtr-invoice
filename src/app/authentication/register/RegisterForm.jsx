@@ -4,10 +4,11 @@ import Password from "@/components/formik/Password";
 import createUser from "@/lib/actions/user/createUser";
 import { registerSchema } from "@/lib/schemas/authentication";
 import { Form, Formik } from "formik";
-import { Button, Spinner } from "keep-react";
+import { Spinner } from "keep-react";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import Alert from "@/lib/config/alert.config";
+import Button from "@/components/Button";
 
 const RegisterForm = () => {
   const [spinner, setSpinner] = useState(false);
@@ -87,8 +88,7 @@ const RegisterForm = () => {
         />
         <Button
           className="w-full rounded-full"
-          color="primary"
-          size="sm"
+          variant="primary"
           disabled={spinner}
           type="submit"
         >

@@ -1,9 +1,10 @@
 "use client";
+import Button from "@/components/Button";
 import { Input } from "@/components/formik/Input";
 import Password from "@/components/formik/Password";
 import { loginSchema } from "@/lib/schemas/authentication";
 import { Form, Formik } from "formik";
-import { Button, Spinner } from "keep-react";
+import { Spinner } from "keep-react";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 
@@ -63,8 +64,7 @@ const LoginForm = ({ searchParams }) => {
         />
         <Button
           className="w-full rounded-full"
-          color="primary"
-          size="sm"
+          variant="primary"
           type="submit"
           disabled={spinner}
         >
