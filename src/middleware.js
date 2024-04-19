@@ -3,14 +3,18 @@ import { NextResponse } from "next/server";
 
 export default withAuth(
   function middleware(req) {
-    const auth = !!req.nextauth;
-    if (!auth) {
-      return NextResponse.redirect(new URL("/authentication/login", req.url));
+    const { nextUrl } = req;
+    const isLoggedIn = !!req.nextauth;
+
+    if (!isLoggedIn) {
+      return NextResponse.redirect(
+        new URL("/authentication/login", nextUrl.pathname),
+      );
     }
   },
   {
     callbacks: {
-      authorized: ({ token }) => {
+      authorized({ token }) {
         if (token) return true;
       },
     },
