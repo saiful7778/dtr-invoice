@@ -39,8 +39,16 @@ const AllProductPage = async () => {
 };
 
 const TableRow = ({ count, inputData }) => {
-  const { _id, productName, quantity, cost, createdAt, updatedAt, sell } =
-    inputData;
+  const {
+    _id,
+    image: { url },
+    productName,
+    quantity,
+    cost,
+    createdAt,
+    updatedAt,
+    sell,
+  } = inputData;
 
   const createdTime = moment(createdAt).format("Do MMM YY, h:mm a");
   const updatedTime = moment(updatedAt).format("Do MMM YY, h:mm a");
@@ -64,7 +72,7 @@ const TableRow = ({ count, inputData }) => {
         </div>
       </Table.cell>
       <Table.cell>
-        <Action productId={_id} />
+        <Action productId={_id} imageUrl={url} />
       </Table.cell>
     </Table.row>
   );
