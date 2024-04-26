@@ -2,6 +2,7 @@ import Table from "@/components/table";
 import readData from "@/lib/CURD/readData";
 import Action from "./Action";
 import moment from "moment";
+import Link from "next/link";
 
 export const metadata = {
   title: "All product - DTR-Invoice",
@@ -14,7 +15,7 @@ const AllProductPage = async () => {
   return (
     <Table>
       <Table.caption className="p-2 font-semibold">
-        Total Products: <span>{}</span>
+        Total Products: <span>{data.length}</span>
       </Table.caption>
       <Table.head>
         <Table.headCell className="min-w-9 text-center">#NO</Table.headCell>
@@ -55,7 +56,14 @@ const TableRow = ({ count, inputData }) => {
   return (
     <Table.row>
       <Table.cell className="text-center">{count}</Table.cell>
-      <Table.cell>{productName}</Table.cell>
+      <Table.cell>
+        <Link
+          href={`/admin/inventory/${_id}`}
+          className="hover:text-blue-500 hover:underline"
+        >
+          {productName}
+        </Link>
+      </Table.cell>
       <Table.cell>{quantity}</Table.cell>
       <Table.cell>{cost}৳</Table.cell>
       <Table.cell>{sell}৳</Table.cell>

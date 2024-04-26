@@ -9,9 +9,11 @@ import Alert from "@/lib/config/alert.config";
 import { addProductSchema } from "@/lib/schemas/Product";
 import { Form, Formik } from "formik";
 import { Spinner } from "keep-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const AddProduct = () => {
+  const router = useRouter();
   const [spinner, setSpinner] = useState(false);
   const { edgestore } = useEdgeStore();
   const [thumbnailImg, setThumbnailImg] = useState({
@@ -56,7 +58,7 @@ const AddProduct = () => {
         sell: e.sell,
       };
       const res = await createData("/product", productData);
-      revalidate("/admin/inventory/all_products");
+
       if (res.success) {
         Alert.fire({
           icon: "success",
@@ -76,6 +78,8 @@ const AddProduct = () => {
       });
     } finally {
       reset();
+      revalidate("/admin/inventory/all_products");
+      router.push("/admin/inventory/all_products");
     }
   };
 
