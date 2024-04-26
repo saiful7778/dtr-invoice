@@ -1,6 +1,8 @@
 "use client";
 import Button from "@/components/Button";
+import ImageUploadComp from "@/components/ImageUpload";
 import { Input } from "@/components/formik/Input";
+import { useEdgeStore } from "@/context/EdgeStoreContext";
 import createData from "@/lib/CURD/createData";
 import revalidate from "@/lib/actions/revalidation";
 import Alert from "@/lib/config/alert.config";
@@ -11,6 +13,11 @@ import { useState } from "react";
 
 const AddProduct = () => {
   const [spinner, setSpinner] = useState(false);
+  const { edgestore } = useEdgeStore();
+  const [thumbnailImg, setThumbnailImg] = useState({
+    url: "",
+    alt: "",
+  });
 
   const initialValues = {
     productName: "",
@@ -38,7 +45,11 @@ const AddProduct = () => {
       return;
     }
     try {
+      await edgestore.dtrInoiceImages.confirmUpload({
+        url: thumbnailImg.url,
+      });
       const productData = {
+        image: thumbnailImg,
         productName: e.productName,
         quantity: e.quantity,
         cost: e.cost,
@@ -69,59 +80,62 @@ const AddProduct = () => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={addProductSchema}
-      onSubmit={handleSubmit}
-    >
-      <Form>
-        <div className="flex flex-wrap gap-2">
-          <Input
-            name="productName"
-            type="text"
-            placeholder="Product name"
-            label="Product name"
+    <>
+      <ImageUploadComp folder="product" setImageData={setThumbnailImg} />
+      <Formik
+        initialValues={initialValues}
+        validationSchema={addProductSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form>
+          <div className="flex flex-wrap gap-2">
+            <Input
+              name="productName"
+              type="text"
+              placeholder="Product name"
+              label="Product name"
+              disabled={spinner}
+              required
+            />
+            <Input
+              className="max-w-xs"
+              name="quantity"
+              type="number"
+              placeholder="Product quantity"
+              label="Product quantity"
+              disabled={spinner}
+              required
+            />
+            <Input
+              className="max-w-xs"
+              name="cost"
+              type="number"
+              placeholder="Product cost price"
+              label="Product cost price"
+              disabled={spinner}
+              required
+            />
+            <Input
+              className="max-w-xs"
+              name="sell"
+              type="number"
+              placeholder="Product sell price"
+              label="Product sell price"
+              disabled={spinner}
+              required
+            />
+          </div>
+          <Button
+            className="mt-2"
+            variant="confirm"
             disabled={spinner}
-            required
-          />
-          <Input
-            className="max-w-xs"
-            name="quantity"
-            type="number"
-            placeholder="Product quantity"
-            label="Product quantity"
-            disabled={spinner}
-            required
-          />
-          <Input
-            className="max-w-xs"
-            name="cost"
-            type="number"
-            placeholder="Product cost price"
-            label="Product cost price"
-            disabled={spinner}
-            required
-          />
-          <Input
-            className="max-w-xs"
-            name="sell"
-            type="number"
-            placeholder="Product sell price"
-            label="Product sell price"
-            disabled={spinner}
-            required
-          />
-        </div>
-        <Button
-          className="mt-2"
-          variant="confirm"
-          disabled={spinner}
-          type="submit"
-        >
-          {spinner ? <Spinner color="info" /> : "Add Product"}
-        </Button>
-      </Form>
-    </Formik>
+            type="submit"
+          >
+            {spinner ? <Spinner color="info" /> : "Add Product"}
+          </Button>
+        </Form>
+      </Formik>
+    </>
   );
 };
 
