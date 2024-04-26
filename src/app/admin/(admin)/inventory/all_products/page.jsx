@@ -49,8 +49,8 @@ const TableRow = ({ count, inputData }) => {
       <Table.cell className="text-center">{count}</Table.cell>
       <Table.cell>{productName}</Table.cell>
       <Table.cell>{quantity}</Table.cell>
-      <Table.cell>{cost}</Table.cell>
-      <Table.cell>{sell}</Table.cell>
+      <Table.cell>{cost}৳</Table.cell>
+      <Table.cell>{sell}৳</Table.cell>
       <Table.cell>
         <div className="text-xs">
           <div>

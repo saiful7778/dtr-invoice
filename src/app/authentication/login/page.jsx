@@ -27,8 +27,8 @@ const LoginPage = ({ searchParams }) => {
         <h4 className="text-center">Login</h4>
         {searchParams.error && (
           <div className="rounded-md border border-red-700 bg-red-800 p-2 text-center text-white">
-            <h6 className="text-xl font-bold">{authError.title}</h6>
-            <p>{authError.description}</p>
+            <h6 className="text-xl font-bold">{authError?.title}</h6>
+            <p>{authError?.description}</p>
           </div>
         )}
         <LoginForm searchParams={searchParams} />

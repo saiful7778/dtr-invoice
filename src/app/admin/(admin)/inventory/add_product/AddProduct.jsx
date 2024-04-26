@@ -2,6 +2,7 @@
 import Button from "@/components/Button";
 import { Input } from "@/components/formik/Input";
 import createData from "@/lib/CURD/createData";
+import revalidate from "@/lib/actions/revalidation";
 import Alert from "@/lib/config/alert.config";
 import { addProductSchema } from "@/lib/schemas/Product";
 import { Form, Formik } from "formik";
@@ -44,6 +45,7 @@ const AddProduct = () => {
         sell: e.sell,
       };
       const res = await createData("/product", productData);
+      revalidate("/admin/inventory/all_products");
       if (res.success) {
         Alert.fire({
           icon: "success",

@@ -1,13 +1,15 @@
 "use client";
 import { Input } from "@/components/formik/Input";
 import { FieldArray, Form, Formik, useField } from "formik";
-import { Button, DatePicker, Table } from "keep-react";
+import { DatePicker, Label, Table } from "keep-react";
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
 import { ImBin } from "react-icons/im";
 import { invoiceSchema } from "@/lib/schemas/invoice";
 import Alert from "@/lib/config/alert.config";
 import createData from "@/lib/CURD/createData";
+import { input } from "@/lib/styles";
+import Button from "@/components/Button";
 
 const InvoiceForm = () => {
   const [spinner, setSpinner] = useState(false);
@@ -84,8 +86,9 @@ const InvoiceForm = () => {
           required
         />
         <div className="w-full max-w-xs">
+          <Label className={input.label}>Invoice date</Label>
           <DatePicker
-            className="bg-transparent"
+            className="border-gray-500 bg-transparent p-2"
             singleDate={setDate}
             placeholder="Date / Month / Year"
           >
@@ -109,15 +112,11 @@ const InvoiceForm = () => {
           required
         />
         <ProductInput />
-        <Button
-          className="rounded-full"
-          color="primary"
-          size="sm"
-          disabled={spinner}
-          type="submit"
-        >
-          Make Invoice
-        </Button>
+        <div>
+          <Button size="sm" variant="primary" disabled={spinner} type="submit">
+            Make Invoice
+          </Button>
+        </div>
       </Form>
     </Formik>
   );
@@ -183,9 +182,8 @@ const ProductInput = () => {
                         </span>
                         <Button
                           onClick={() => arrayHelpers.remove(index)}
-                          size="xs"
-                          shape="icon"
-                          color="error"
+                          shape="icon-button"
+                          variant="cancel"
                         >
                           <ImBin size={12} />
                         </Button>
@@ -205,7 +203,7 @@ const ProductInput = () => {
                 })
               }
               size="sm"
-              color="success"
+              variant="confirm"
               type="button"
             >
               Add
