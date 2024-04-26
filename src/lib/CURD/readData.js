@@ -1,6 +1,6 @@
 export default async function readData(apiRoute) {
   try {
-    const res = await fetch(process.env.NEXT_API_URL + apiRoute, {
+    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + apiRoute, {
       method: "GET",
       headers: {
         "content-type": "application/json",
