@@ -3,6 +3,8 @@ import readData from "@/lib/CURD/readData";
 import Action from "./Action";
 import moment from "moment";
 import Link from "next/link";
+import Button from "@/components/Button";
+import ReloadButton from "@/components/ReloadButton";
 
 export const metadata = {
   title: "All product - DTR-Invoice",
@@ -13,29 +15,42 @@ const AllProductPage = async () => {
   const productData = await readData("/products");
   const { data } = productData;
   return (
-    <Table>
-      <Table.caption className="p-2 font-semibold">
-        Total Products: <span>{data.length}</span>
-      </Table.caption>
-      <Table.head>
-        <Table.headCell className="min-w-9 text-center">#NO</Table.headCell>
-        <Table.headCell className="min-w-48">Product name</Table.headCell>
-        <Table.headCell className="min-w-20">Quantity</Table.headCell>
-        <Table.headCell className="min-w-20">Cost</Table.headCell>
-        <Table.headCell className="min-w-20">Sell</Table.headCell>
-        <Table.headCell className="min-w-48">Status</Table.headCell>
-        <Table.headCell className="min-w-16">Actions</Table.headCell>
-      </Table.head>
-      <Table.body>
-        {data?.map((ele, idx) => (
-          <TableRow
-            key={"productTableRow" + idx}
-            count={idx + 1}
-            inputData={ele}
-          />
-        ))}
-      </Table.body>
-    </Table>
+    <>
+      <div className="flex items-center gap-2">
+        <div className="text-sm">
+          Total Products: <span>{data.length}</span>
+        </div>
+        <Button
+          href="/admin/inventory/add_product"
+          className="ml-auto"
+          variant="primary-outline"
+          size="sm"
+        >
+          Add Project
+        </Button>
+        <ReloadButton revalidatePath="/admin/inventory/all_products" />
+      </div>
+      <Table>
+        <Table.head>
+          <Table.headCell className="min-w-9 text-center">#NO</Table.headCell>
+          <Table.headCell className="min-w-48">Product name</Table.headCell>
+          <Table.headCell className="min-w-20">Quantity</Table.headCell>
+          <Table.headCell className="min-w-20">Cost</Table.headCell>
+          <Table.headCell className="min-w-20">Sell</Table.headCell>
+          <Table.headCell className="min-w-48">Status</Table.headCell>
+          <Table.headCell className="min-w-16">Actions</Table.headCell>
+        </Table.head>
+        <Table.body>
+          {data?.map((ele, idx) => (
+            <TableRow
+              key={"productTableRow" + idx}
+              count={idx + 1}
+              inputData={ele}
+            />
+          ))}
+        </Table.body>
+      </Table>
+    </>
   );
 };
 
