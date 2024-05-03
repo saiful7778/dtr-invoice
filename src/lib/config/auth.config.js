@@ -14,11 +14,17 @@ const authConfig = {
   },
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.role = user.role;
+      if (user) {
+        token.role = user.role;
+        token.sub = user.sub;
+      }
       return token;
     },
     async session({ session, token }) {
-      if (session?.user) session.user.role = token.role;
+      if (session?.user) {
+        session.user.role = token.role;
+        session.user.sub = token.sub;
+      }
       return session;
     },
   },
