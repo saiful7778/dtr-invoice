@@ -11,6 +11,11 @@ const StateContextProvider = ({ children }) => {
     const getTheme = localStorage.getItem("theme");
     if (getTheme) {
       setTheme(getTheme === "dark" ? true : false);
+      if (getTheme === "dark") {
+        document.body.classList.add("dark");
+      } else {
+        document.body.classList.remove("dark");
+      }
     }
   }, []);
 

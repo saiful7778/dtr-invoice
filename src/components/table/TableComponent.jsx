@@ -2,7 +2,7 @@ import cn from "@/lib/utils/cn";
 
 export const TableMain = ({ children }) => {
   return (
-    <section className="w-full overflow-auto border border-gray-300 dark:border-gray-600">
+    <section className="my-2 w-full overflow-auto border border-gray-300 dark:border-gray-600">
       <div className="relative">
         <table className="w-full overflow-auto">{children}</table>
       </div>
@@ -12,7 +12,7 @@ export const TableMain = ({ children }) => {
 
 export const TableCaption = ({ children }) => {
   return (
-    <caption className="bg-gray-100 p-0.5 text-sm dark:bg-gray-700">
+    <caption className="border-b border-gray-300 bg-gray-100 p-0.5 text-sm dark:border-gray-600 dark:bg-gray-700">
       {children}
     </caption>
   );
@@ -22,7 +22,7 @@ export const TableHead = ({ className, children }) => {
   return (
     <thead
       className={cn(
-        "border-y border-gray-300 bg-gray-50 text-xs font-normal dark:border-gray-600 dark:bg-gray-700",
+        "border-b border-gray-300 bg-gray-50 text-xs font-normal dark:border-gray-600 dark:bg-gray-700",
         className,
       )}
     >
