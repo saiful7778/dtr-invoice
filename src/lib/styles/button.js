@@ -7,8 +7,8 @@ const style = {
   cancel: "border border-red-600 bg-red-700 text-white hover:bg-red-600",
   size: {
     sm: "px-2 py-1 text-xs",
-    md: "px-4 py-2 text-base",
-    lg: "px-5 py-2.5 text-base",
+    md: "px-3 py-1.5 text-base",
+    lg: "px-5 py-2 text-base",
   },
   shape: {
     circle: "rounded-full p-1",
