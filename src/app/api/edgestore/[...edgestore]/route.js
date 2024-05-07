@@ -8,7 +8,7 @@ const edgeStoreRouter = es.router({
   dtrInoiceImages: es
     .imageBucket({
       maxSize: 1024 * 1024 * 5,
-      accept: ["image/jpeg", "image/jpg", "image/png"],
+      accept: ["image/jpeg", "image/jpg", "image/png", "image/webp"],
     })
     .input(
       z.object({
