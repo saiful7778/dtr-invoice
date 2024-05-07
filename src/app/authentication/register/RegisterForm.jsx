@@ -6,12 +6,14 @@ import { registerSchema } from "@/lib/schemas/authentication";
 import { Form, Formik } from "formik";
 import { Spinner } from "keep-react";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 import Alert from "@/lib/config/alert.config";
 import Button from "@/components/Button";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const RegisterForm = () => {
   const [spinner, setSpinner] = useState(false);
+  const router = useRouter();
 
   const initialValues = {
     fullName: "",
@@ -37,6 +39,7 @@ const RegisterForm = () => {
         password: e.password,
       };
       await createUserData(userData);
+      router.push("/authentication/login");
     } catch (err) {
       console.error(err);
       Alert.fire({
@@ -53,17 +56,15 @@ const RegisterForm = () => {
       onSubmit={handleSubmit}
       validationSchema={registerSchema}
     >
-      <Form className="space-y-2">
-        <div className="flex gap-2">
-          <Input
-            type="text"
-            placeholder="Full name"
-            label="Your name"
-            name="fullName"
-            disabled={spinner}
-            required
-          />
-        </div>
+      <Form className="space-y-4">
+        <Input
+          type="text"
+          placeholder="Full name"
+          label="Your name"
+          name="fullName"
+          disabled={spinner}
+          required
+        />
         <Input
           type="email"
           placeholder="Email address"
@@ -87,7 +88,7 @@ const RegisterForm = () => {
           required
         />
         <Button
-          className="w-full rounded-full"
+          className="w-full rounded-full py-2"
           variant="primary"
           disabled={spinner}
           type="submit"
@@ -109,7 +110,7 @@ const createUserData = async (userData) => {
     email: userData.email,
     password: userData.password,
     redirect: true,
-    callbackUrl: "/",
+    callbackUrl: "/admin/dashboard",
   });
 };
 

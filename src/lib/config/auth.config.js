@@ -16,14 +16,14 @@ const authConfig = {
     async jwt({ token, user }) {
       if (user) {
         token.role = user.role;
-        token.sub = user.sub;
+        token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
       if (session?.user) {
         session.user.role = token.role;
-        session.user.sub = token.sub;
+        session.user.id = token.id;
       }
       return session;
     },

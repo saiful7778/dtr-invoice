@@ -1,7 +1,7 @@
 "use server";
 import db from "@/lib/db";
 import { createUserSchema } from "@/lib/schemas/authentication";
-import { hash } from "bcryptjs";
+import { genSalt, hash } from "bcryptjs";
 
 export default async function createUser(userData) {
   try {
@@ -17,7 +17,9 @@ export default async function createUser(userData) {
     if (exist) {
       throw "user is already exist!";
     }
-    const hashedPassword = await hash(userData.password, 10);
+    const saltValue = await genSalt(10);
+    const hashedPassword = await hash(userData.password, saltValue);
+
     await db.user.create({
       data: {
         name: userData.fullName,

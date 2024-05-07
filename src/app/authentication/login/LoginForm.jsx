@@ -46,8 +46,9 @@ const LoginForm = ({ searchParams }) => {
       onSubmit={handleSubmit}
       validationSchema={loginSchema}
     >
-      <Form className="space-y-2">
+      <Form className="space-y-4">
         <Input
+          className="w-full"
           type="email"
           placeholder="Email address"
           label="Your email"
@@ -56,6 +57,7 @@ const LoginForm = ({ searchParams }) => {
           required
         />
         <Password
+          className="w-full"
           name="password"
           placeholder="Strong password"
           label="Password"
@@ -63,7 +65,7 @@ const LoginForm = ({ searchParams }) => {
           required
         />
         <Button
-          className="w-full rounded-full"
+          className="w-full rounded-full py-2"
           variant="primary"
           type="submit"
           disabled={spinner}
