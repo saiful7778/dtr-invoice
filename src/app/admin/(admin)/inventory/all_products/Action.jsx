@@ -11,7 +11,7 @@ const Action = ({ productId, imageUrl }) => {
   const { edgestore } = useEdgeStore();
 
   const handleUpdate = () => {
-    router.push(`/admin/inventory/update/${productId}`);
+    router.push(`/admin/inventory/${productId}`);
   };
 
   const handleDelete = async () => {

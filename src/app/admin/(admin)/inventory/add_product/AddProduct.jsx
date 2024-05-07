@@ -1,9 +1,9 @@
 "use client";
 import Button from "@/components/Button";
-import ImageUploadComp from "@/components/ImageUpload";
+import ImageUpload from "@/components/ImageUpload";
 import { Input } from "@/components/formik/Input";
 import { useEdgeStore } from "@/context/EdgeStoreContext";
-import createData from "@/lib/CURD/createData";
+import createProduct from "@/lib/actions/product/createProduct";
 import revalidate from "@/lib/actions/revalidation";
 import Alert from "@/lib/config/alert.config";
 import { addProductSchema } from "@/lib/schemas/Product";
@@ -12,7 +12,7 @@ import { Spinner } from "keep-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const AddProduct = () => {
+const AddProduct = ({ userId }) => {
   const router = useRouter();
   const [spinner, setSpinner] = useState(false);
   const { edgestore } = useEdgeStore();
@@ -46,53 +46,54 @@ const AddProduct = () => {
       setSpinner(false);
       return;
     }
+    if (!thumbnailImg.url) {
+      Alert.fire({
+        icon: "error",
+        title: "Please upload product image",
+      });
+      setSpinner(false);
+      return;
+    }
     try {
       await edgestore.dtrInoiceImages.confirmUpload({
         url: thumbnailImg.url,
       });
       const productData = {
-        image: thumbnailImg,
+        image: thumbnailImg.url,
         productName: e.productName,
-        quantity: e.quantity,
-        cost: e.cost,
-        sell: e.sell,
+        quantity: +e.quantity,
+        cost: +e.cost,
+        sell: +e.sell,
       };
-      const res = await createData("/product", productData);
-
-      if (res.success) {
+      const res = await createProduct(productData, userId);
+      if (res) {
         Alert.fire({
           icon: "success",
           title: "Product is created!",
         });
-      } else {
-        Alert.fire({
-          icon: "error",
-          text: "Something went wrong",
-        });
+        await revalidate("/admin/inventory/all_products");
+        router.push("/admin/inventory/all_products");
       }
-    } catch (err) {
-      console.error(err);
+    } catch {
       Alert.fire({
         icon: "error",
         text: "Something went wrong",
       });
     } finally {
       reset();
-      revalidate("/admin/inventory/all_products");
-      router.push("/admin/inventory/all_products");
     }
   };
 
   return (
-    <>
-      <ImageUploadComp folder="product" setImageData={setThumbnailImg} />
+    <div className="flex flex-col gap-4 md:flex-row">
+      <ImageUpload folder="product" setImageData={setThumbnailImg} />
       <Formik
         initialValues={initialValues}
         validationSchema={addProductSchema}
         onSubmit={handleSubmit}
       >
-        <Form>
-          <div className="flex flex-wrap gap-2">
+        <Form className="flex-1">
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
             <Input
               name="productName"
               type="text"
@@ -102,27 +103,24 @@ const AddProduct = () => {
               required
             />
             <Input
-              className="max-w-xs"
               name="quantity"
-              type="number"
+              type="text"
               placeholder="Product quantity"
               label="Product quantity"
               disabled={spinner}
               required
             />
             <Input
-              className="max-w-xs"
               name="cost"
-              type="number"
+              type="text"
               placeholder="Product cost price"
               label="Product cost price"
               disabled={spinner}
               required
             />
             <Input
-              className="max-w-xs"
               name="sell"
-              type="number"
+              type="text"
               placeholder="Product sell price"
               label="Product sell price"
               disabled={spinner}
@@ -135,11 +133,11 @@ const AddProduct = () => {
             disabled={spinner}
             type="submit"
           >
-            {spinner ? <Spinner color="info" /> : "Add Product"}
+            {spinner ? <Spinner color="info" size="xs" /> : "Add Product"}
           </Button>
         </Form>
       </Formik>
-    </>
+    </div>
   );
 };
 

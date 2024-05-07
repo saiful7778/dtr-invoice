@@ -1,24 +1,35 @@
 import Table from "@/components/table";
-import readData from "@/lib/CURD/readData";
 import Action from "./Action";
 import moment from "moment";
 import Link from "next/link";
 import Button from "@/components/Button";
 import ReloadButton from "@/components/ReloadButton";
+import db from "@/lib/db";
 
 export const metadata = {
   title: "All product - DTR-Invoice",
   description: "This is inventory all product management page.",
 };
 
+async function getAllProducts() {
+  try {
+    const data = await db.product.findMany({ include: { createdBy: true } });
+    if (!data) {
+      throw "No data available";
+    }
+    return data;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
 const AllProductPage = async () => {
-  const productData = await readData("/products");
-  const { data } = productData;
+  const allProductData = await getAllProducts();
   return (
     <>
       <div className="flex items-center gap-2">
         <div className="text-sm">
-          Total Products: <span>{data.length}</span>
+          Total Products: <span>{allProductData.length}</span>
         </div>
         <Button
           href="/admin/inventory/add_product"
@@ -41,7 +52,7 @@ const AllProductPage = async () => {
           <Table.headCell className="min-w-16">Actions</Table.headCell>
         </Table.head>
         <Table.body>
-          {data?.map((ele, idx) => (
+          {allProductData?.map((ele, idx) => (
             <TableRow
               key={"productTableRow" + idx}
               count={idx + 1}
@@ -55,16 +66,8 @@ const AllProductPage = async () => {
 };
 
 const TableRow = ({ count, inputData }) => {
-  const {
-    _id,
-    image: { url },
-    productName,
-    quantity,
-    cost,
-    createdAt,
-    updatedAt,
-    sell,
-  } = inputData;
+  const { id, image, productName, quantity, cost, createdAt, updatedAt, sell } =
+    inputData;
 
   const createdTime = moment(createdAt).format("Do MMM YY, h:mm a");
   const updatedTime = moment(updatedAt).format("Do MMM YY, h:mm a");
@@ -73,7 +76,7 @@ const TableRow = ({ count, inputData }) => {
       <Table.cell className="text-center">{count}</Table.cell>
       <Table.cell>
         <Link
-          href={`/admin/inventory/${_id}`}
+          href={`/admin/inventory/${id}`}
           className="hover:text-blue-500 hover:underline"
         >
           {productName}
@@ -95,7 +98,7 @@ const TableRow = ({ count, inputData }) => {
         </div>
       </Table.cell>
       <Table.cell>
-        <Action productId={_id} imageUrl={url} />
+        <Action productId={id} imageUrl={image} />
       </Table.cell>
     </Table.row>
   );
