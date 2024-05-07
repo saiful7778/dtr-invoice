@@ -16,9 +16,9 @@ const style = {
     "border border-gray-700 dark:border-gray-300 hover:text-accent-color hover:bg-gray-300",
   size: {
     main: {
-      sm: "max-w-sm",
-      md: "max-w-md",
-      lg: "max-w-2xl",
+      sm: "max-w-[24rem]",
+      md: "max-w-[28rem]",
+      lg: "max-w-[42rem]",
     },
     image: {
       sm: {
@@ -42,7 +42,7 @@ const style = {
   },
 };
 
-const ImageUploadComp = ({ size = "md", folder, setImageData }) => {
+const ImageUpload = ({ size = "md", folder, setImageData }) => {
   const { edgestore } = useEdgeStore();
   const inputId = useId();
   const [showImage, setShowImage] = useState(null);
@@ -126,10 +126,9 @@ const ImageUploadComp = ({ size = "md", folder, setImageData }) => {
       }
       const fileDataType = [
         "image/jpeg",
+        "image/jpg",
         "image/png",
-        "image/gif",
         "image/webp",
-        "image/x-icon",
       ];
       if (!fileDataType.includes(imageObj.type)) {
         setErrorStatus("This file not supported!");
@@ -206,7 +205,11 @@ const ImageUploadComp = ({ size = "md", folder, setImageData }) => {
                         variant="cancel"
                         size="sm"
                       >
-                        {spinner ? <Spinner color="info" /> : "Delete"}
+                        {spinner ? (
+                          <Spinner color="info" size="xs" />
+                        ) : (
+                          "Delete"
+                        )}
                       </Button>
                     )}
                   </div>
@@ -257,7 +260,7 @@ const ImageUploadComp = ({ size = "md", folder, setImageData }) => {
               <IoImageOutline size={50} />
             </span>
             <h6 className="text-xl font-medium">Choose an image</h6>
-            <p className="text-sm text-gray-500">Files: png, jpeg, jpg</p>
+            <p className="text-sm text-gray-500">Files: png, jpeg, jpg, webp</p>
             <label htmlFor={inputId}>
               <input
                 id={inputId}
@@ -302,4 +305,4 @@ function convertFileSize(inputSize) {
   }
 }
 
-export default ImageUploadComp;
+export default ImageUpload;

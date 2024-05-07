@@ -17,12 +17,16 @@ const InputComp = ({
   const inputID = useId();
   const [field, { error, touched }] = useField({ name });
   return (
-    <fieldset className={cn("w-full max-w-md", className)}>
+    <fieldset className={cn(className)}>
       <Label htmlFor={inputID} className={input.label}>
         {label}
       </Label>
       <Input
-        className={cn(input.base, inputClassName, error && input.error)}
+        className={cn(
+          input.base,
+          inputClassName,
+          error && touched && input.error,
+        )}
         id={inputID}
         type={type}
         placeholder={placeholder}

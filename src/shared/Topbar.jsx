@@ -75,6 +75,12 @@ const Topbar = () => {
                   >
                     Home
                   </Link>
+                  <Link
+                    className="my-1 block w-full rounded p-1 text-center text-sm hover:bg-gray-300 dark:hover:bg-gray-600"
+                    href="/admin/profile"
+                  >
+                    Profile
+                  </Link>
                   <Button
                     onClick={async () => await signOut()}
                     className="mt-1 w-full"
