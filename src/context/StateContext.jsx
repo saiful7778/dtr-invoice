@@ -1,30 +1,22 @@
 "use client";
-import { createContext, useEffect, useLayoutEffect, useState } from "react";
+import { getValue, setValue } from "@/lib/utils/store";
+import { createContext, useEffect, useState } from "react";
 
 export const StateContext = createContext(null);
 
 const StateContextProvider = ({ children }) => {
   const [sidebar, setSidebar] = useState(true);
-  const [theme, setTheme] = useState(false);
-
-  useLayoutEffect(() => {
-    const getTheme = localStorage.getItem("theme");
-    if (getTheme) {
-      setTheme(getTheme === "dark" ? true : false);
-      if (getTheme === "dark") {
-        document.body.classList.add("dark");
-      } else {
-        document.body.classList.remove("dark");
-      }
-    }
-  }, []);
+  const [theme, setTheme] = useState(
+    getValue("theme") === "dark"
+      ? true
+      : getValue("theme") === "light" && false,
+  );
 
   useEffect(() => {
+    setValue("theme", theme ? "dark" : "light");
     if (theme) {
-      localStorage.setItem("theme", "dark");
       document.body.classList.add("dark");
     } else {
-      localStorage.setItem("theme", "");
       document.body.classList.remove("dark");
     }
   }, [theme]);
