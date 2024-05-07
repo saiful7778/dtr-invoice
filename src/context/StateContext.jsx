@@ -1,5 +1,4 @@
 "use client";
-import { getValue, setValue } from "@/lib/utils/store";
 import { createContext, useEffect, useState } from "react";
 
 export const StateContext = createContext(null);
@@ -7,9 +6,7 @@ export const StateContext = createContext(null);
 const StateContextProvider = ({ children }) => {
   const [sidebar, setSidebar] = useState(true);
   const [theme, setTheme] = useState(
-    getValue("theme") === "dark"
-      ? true
-      : getValue("theme") === "light" && false,
+    getValue("theme") == "dark" ? true : false,
   );
 
   useEffect(() => {
@@ -33,5 +30,13 @@ const StateContextProvider = ({ children }) => {
     </StateContext.Provider>
   );
 };
+
+function getValue(fieldName) {
+  return localStorage.getItem(fieldName);
+}
+
+function setValue(fieldName, fieldValue) {
+  return localStorage.setItem(fieldName, fieldValue);
+}
 
 export default StateContextProvider;
