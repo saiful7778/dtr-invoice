@@ -59,13 +59,13 @@ const UpdateProduct = ({ productData, children }) => {
         /**
          * delete previous image
          */
-        await edgestore.portfolioImages.delete({
+        await edgestore.dtrInoiceImages.delete({
           url: image,
         });
         /**
          * confirm update a new image
          */
-        await edgestore.portfolioImages.confirmUpload({
+        await edgestore.dtrInoiceImages.confirmUpload({
           url: thumbnailImg.url,
         });
         await updateProductData(id, {
@@ -85,8 +85,7 @@ const UpdateProduct = ({ productData, children }) => {
       }
       await revalidate("/admin/inventory/all_products");
       router.push("/admin/inventory/all_products");
-    } catch (err) {
-      console.log(err);
+    } catch {
       Alert.fire({
         icon: "error",
         text: "Something went wrong",
