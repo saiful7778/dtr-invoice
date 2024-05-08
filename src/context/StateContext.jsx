@@ -32,11 +32,15 @@ const StateContextProvider = ({ children }) => {
 };
 
 function getValue(fieldName) {
-  return window.localStorage.getItem(fieldName);
+  if (typeof window !== "undefined") {
+    return window.localStorage.getItem(fieldName);
+  }
 }
 
 function setValue(fieldName, fieldValue) {
-  return window.localStorage.setItem(fieldName, fieldValue);
+  if (typeof window !== "undefined") {
+    return window.localStorage.setItem(fieldName, fieldValue);
+  }
 }
 
 export default StateContextProvider;

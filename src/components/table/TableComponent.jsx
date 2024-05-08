@@ -2,9 +2,9 @@ import cn from "@/lib/utils/cn";
 
 export const TableMain = ({ children }) => {
   return (
-    <section className="my-2 w-full overflow-auto border border-gray-300 dark:border-gray-600">
+    <section className="my-2 w-full overflow-x-auto overflow-y-visible border border-gray-300 dark:border-gray-600">
       <div className="relative">
-        <table className="w-full overflow-auto">{children}</table>
+        <table className="w-full">{children}</table>
       </div>
     </section>
   );
