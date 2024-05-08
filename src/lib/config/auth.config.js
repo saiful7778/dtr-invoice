@@ -1,5 +1,6 @@
 import db from "@/lib/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import getEnvVar from "@/lib/envVar";
 
 const authConfig = {
   adapter: PrismaAdapter(db),
@@ -7,7 +8,7 @@ const authConfig = {
     strategy: "jwt",
     maxAge: 4 * 60 * 60,
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: getEnvVar("NEXTAUTH_SECRET"),
   debug: process.env.NODE_ENV === "development",
   pages: {
     signIn: "/authentication/login",

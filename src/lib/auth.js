@@ -4,12 +4,13 @@ import { loginSchema } from "@/lib/schemas/authentication";
 import Google from "next-auth/providers/google";
 import { compare } from "bcryptjs";
 import db from "@/lib/db";
+import getEnvVar from "@/lib/envVar";
 
 const auth = {
   providers: [
     Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRETS,
+      clientId: getEnvVar("GOOGLE_CLIENT_ID"),
+      clientSecret: getEnvVar("GOOGLE_CLIENT_SECRETS"),
     }),
     CredentialProvider({
       async authorize(credentials) {
