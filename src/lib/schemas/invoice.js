@@ -1,11 +1,12 @@
 import * as yup from "yup";
 
 export const invoiceSchema = yup.object().shape({
-  invoiceID: yup.string().required("Invoice ID is required"),
-  customerName: yup.string().required("Customer name is required"),
-  customenrAddress: yup.string().required("Address is required"),
+  invoiceId: yup.string().required("Invoice ID is required"),
+  name: yup.string().required("Customer name is required"),
+  address: yup.string().required("Address is required"),
   products: yup.array().of(
     yup.object().shape({
+      productId: yup.string().required("Product Id is required"),
       productName: yup.string().required("Product name is required"),
       quantity: yup
         .number()
