@@ -59,3 +59,35 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model Invoice {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  invoiceId   Int           @unique
+  invoiceDate DateTime
+  customer    Customer      @relation(fields: [customerId], references: [id])
+  customerId  String        @db.ObjectId
+  products    SellProduct[]
+  totalPrice  Int
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Customer {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  address   String
+  Invoice   Invoice[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model SellProduct {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  Invoice    Invoice  @relation(fields: [invoiceId], references: [id])
+  invoiceId  String   @db.ObjectId
+  productId  String   @db.ObjectId
+  quantity   Int
+  totalPrice Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
