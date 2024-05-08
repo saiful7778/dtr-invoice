@@ -45,13 +45,19 @@ const Sidebar = () => {
               All Products
             </SidebarDropdownItem>
           </SidebarDropdown>
-          <SidebarItem
+          <SidebarDropdown
             path="/admin/invoice"
             textShow={sidebar}
             icon={<FaFileInvoiceDollar />}
+            title="Invoice"
           >
-            Invoice
-          </SidebarItem>
+            <SidebarDropdownItem path="/admin/invoice/add_invoice">
+              Add Invoice
+            </SidebarDropdownItem>
+            <SidebarDropdownItem path="/admin/invoice/all_invoices">
+              All Invoices
+            </SidebarDropdownItem>
+          </SidebarDropdown>
           <hr className="border-gray-300 dark:border-gray-700" />
           <SidebarItem
             path="/admin/settings"
@@ -69,9 +75,9 @@ const Sidebar = () => {
 const style = {
   base: "inline-flex w-full items-center cursor-pointer rounded border px-2 py-1 text-sm duration-100",
   active:
-    "bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600 shadow",
+    "bg-gray-50 border-gray-300 dark:bg-gray-700 dark:border-gray-600 shadow",
   inActive:
-    "border-gray-300 hover:bg-gray-100 dark:border-gray-600 hover:dark:bg-gray-700",
+    "border-gray-300 hover:bg-gray-50 dark:border-gray-600 hover:dark:bg-gray-700",
 };
 
 const SidebarItem = ({ children, path, icon, textShow }) => {
@@ -133,7 +139,7 @@ const SidebarDropdown = ({ children, path, title, icon, textShow }) => {
               : "grid-rows-[0fr] opacity-0",
           )}
         >
-          <ul className="divide-y divide-gray-600 overflow-hidden border-b border-gray-600">
+          <ul className="divide-y divide-gray-300 overflow-hidden border-b border-gray-300 dark:divide-gray-600 dark:border-gray-600">
             {children}
           </ul>
         </div>
@@ -146,7 +152,7 @@ const SidebarDropdown = ({ children, path, title, icon, textShow }) => {
               : "invisible opacity-0 group-hover:visible group-hover:opacity-100",
           )}
         >
-          <ul className="divide-y divide-gray-700 border border-gray-700 bg-gray-800">
+          <ul className="divide-y divide-gray-300 border border-gray-300 bg-gray-200 dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-800">
             {children}
           </ul>
         </div>
@@ -162,8 +168,8 @@ const SidebarDropdownItem = ({ path, children }) => {
     <li>
       <Link
         className={cn(
-          "block w-full cursor-pointer px-2 py-1 text-xs hover:bg-gray-700",
-          isActive && "bg-gray-700",
+          "block w-full cursor-pointer px-2 py-1 text-xs hover:bg-gray-50 hover:dark:bg-gray-700",
+          isActive && "bg-gray-50 dark:bg-gray-700",
         )}
         href={path}
       >
