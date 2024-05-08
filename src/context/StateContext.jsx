@@ -32,11 +32,11 @@ const StateContextProvider = ({ children }) => {
 };
 
 function getValue(fieldName) {
-  return localStorage.getItem(fieldName);
+  return window.localStorage.getItem(fieldName);
 }
 
 function setValue(fieldName, fieldValue) {
-  return localStorage.setItem(fieldName, fieldValue);
+  return window.localStorage.setItem(fieldName, fieldValue);
 }
 
 export default StateContextProvider;
