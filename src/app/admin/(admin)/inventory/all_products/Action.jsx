@@ -1,6 +1,7 @@
 "use client";
 import ActionMenu from "@/components/ActionMenu";
 import { useEdgeStore } from "@/context/EdgeStoreContext";
+import deleteProduct from "@/lib/actions/product/deleteProduct";
 import revalidate from "@/lib/actions/revalidation";
 import Alert from "@/lib/config/alert.config";
 import { useRouter } from "next/navigation";
@@ -28,25 +29,26 @@ const Action = ({ productId, imageUrl }) => {
         },
       });
       try {
-        // const { data } = await deleteData(`/product/${productId}`);
-        // if (data.deletedCount !== 1) {
-        //   throw new Error("Something went wrong");
-        // }
-        await edgestore.dtrInoiceImages.delete({
-          url: imageUrl,
-        });
+        const data = await deleteProduct(productId);
+        if (!data) {
+          throw "Error";
+        }
+        if (imageUrl) {
+          await edgestore.dtrInoiceImages.delete({
+            url: imageUrl,
+          });
+        }
         Alert.fire({
           icon: "success",
           title: "Product is deleted!",
         });
-      } catch (err) {
-        console.error(err);
+      } catch {
         Alert.fire({
           icon: "error",
           text: "Something went wrong",
         });
       } finally {
-        revalidate("/admin/inventory/all_products");
+        await revalidate("/admin/inventory/all_products");
       }
     }
   };

@@ -53,12 +53,13 @@ const AddProduct = ({ userId }) => {
         });
       }
       const productData = {
-        image: thumbnailImg.url,
+        image: thumbnailImg.url || null,
         productName: e.productName,
         quantity: +e.quantity,
         cost: +e.cost,
         sell: +e.sell,
       };
+
       const res = await createProduct(productData, userId);
       if (res) {
         Alert.fire({

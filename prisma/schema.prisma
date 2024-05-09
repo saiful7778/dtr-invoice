@@ -49,7 +49,7 @@ enum Role {
 
 model Product {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  image       String
+  image       String?
   productName String
   quantity    Int
   cost        Int
