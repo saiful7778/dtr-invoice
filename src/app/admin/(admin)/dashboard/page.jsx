@@ -1,3 +1,4 @@
+import ReloadButton from "@/components/ReloadButton";
 import StatsItem from "@/components/StatsItem";
 import getInvoiceStats from "@/lib/data/getInvoiceStats";
 import getProductStats from "@/lib/data/getProductStats";
@@ -17,6 +18,9 @@ const DashboardPage = async () => {
   const hasInvoiceData = !!Object.keys(invoiceData).length;
   return (
     <div>
+      <div className="flex justify-end">
+        <ReloadButton revalidatePath="/admin/dashboard" />
+      </div>
       <div className="mb-4 flex flex-wrap gap-4">
         {hasProductData && (
           <>
