@@ -3,7 +3,7 @@ import db from "@/lib/db";
 
 export default async function getInvoiceStats() {
   try {
-    const [[{ totalSells }], sec] = await db.$transaction([
+    const [[totalSells], sec] = await db.$transaction([
       db.invoice.aggregateRaw({
         pipeline: [
           {
@@ -32,7 +32,7 @@ export default async function getInvoiceStats() {
         },
       }),
     ]);
-    return { totalSells, ...sec };
+    return { ...totalSells, ...sec };
   } catch (err) {
     throw new Error(err);
   }
