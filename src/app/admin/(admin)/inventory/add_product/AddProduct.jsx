@@ -46,18 +46,12 @@ const AddProduct = ({ userId }) => {
       setSpinner(false);
       return;
     }
-    if (!thumbnailImg.url) {
-      Alert.fire({
-        icon: "error",
-        title: "Please upload product image",
-      });
-      setSpinner(false);
-      return;
-    }
     try {
-      await edgestore.dtrInoiceImages.confirmUpload({
-        url: thumbnailImg.url,
-      });
+      if (thumbnailImg.url) {
+        await edgestore.dtrInoiceImages.confirmUpload({
+          url: thumbnailImg.url,
+        });
+      }
       const productData = {
         image: thumbnailImg.url,
         productName: e.productName,
