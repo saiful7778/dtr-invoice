@@ -1,4 +1,5 @@
 "use client";
+
 import Button from "@/components/Button";
 import ImageUpload from "@/components/ImageUpload";
 import { Input } from "@/components/formik/Input";
@@ -13,9 +14,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const UpdateProduct = ({ productData, children }) => {
+const UpdateProduct = ({ productData }) => {
   const { id, image, productName, quantity, cost, sell } = productData;
-  const [updateData, setUpdateData] = useState(false);
   const [spinner, setSpinner] = useState(false);
   const [updateImage, setUpdateImage] = useState(false);
   const router = useRouter();
@@ -47,21 +47,15 @@ const UpdateProduct = ({ productData, children }) => {
     setSpinner(true);
     const reset = handleReset(resetForm);
     try {
-      if (updateImage) {
-        if (!thumbnailImg.url) {
-          Alert.fire({
-            icon: "warning",
-            text: "Please select an thumbnail image!",
+      if (thumbnailImg.url) {
+        if (image) {
+          /**
+           * delete previous image
+           */
+          await edgestore.dtrInoiceImages.delete({
+            url: image,
           });
-          setSpinner(false);
-          return;
         }
-        /**
-         * delete previous image
-         */
-        await edgestore.dtrInoiceImages.delete({
-          url: image,
-        });
         /**
          * confirm update a new image
          */
@@ -94,112 +88,91 @@ const UpdateProduct = ({ productData, children }) => {
       reset();
     }
   };
-
   return (
-    <>
-      {updateData ? (
-        <div className="flex flex-col gap-2 md:flex-row">
-          {updateImage ? (
-            <div className="flex-1">
-              <ImageUpload folder="product" setImageData={setThumbnailImg} />
-              <div className="flex justify-center">
-                <Button
-                  onClick={() => setUpdateImage((l) => !l)}
-                  size="sm"
-                  variant="cancel"
-                >
-                  Cancel
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <figure className="my-2 flex flex-col items-center gap-2">
-              <Image
-                className="mx-auto"
-                src={image}
-                alt={productName}
-                title={productName}
-                width={300}
-                height={150}
-              />
-              <Button
-                onClick={() => setUpdateImage((l) => !l)}
-                size="sm"
-                variant="cancel"
-              >
-                Change
-              </Button>
-            </figure>
-          )}
-          <Formik
-            initialValues={initialValues}
-            validationSchema={addProductSchema}
-            onSubmit={handleSubmit}
-          >
-            <Form className="flex-1">
-              <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-                <Input
-                  name="productName"
-                  type="text"
-                  placeholder="Product name"
-                  label="Product name"
-                  disabled={spinner}
-                  required
-                />
-                <Input
-                  name="quantity"
-                  type="text"
-                  placeholder="Product quantity"
-                  label="Product quantity"
-                  disabled={spinner}
-                  required
-                />
-                <Input
-                  name="cost"
-                  type="text"
-                  placeholder="Product cost price"
-                  label="Product cost price"
-                  disabled={spinner}
-                  required
-                />
-                <Input
-                  name="sell"
-                  type="text"
-                  placeholder="Product sell price"
-                  label="Product sell price"
-                  disabled={spinner}
-                  required
-                />
-              </div>
-              <Button
-                className="mt-2"
-                variant="confirm"
-                disabled={spinner}
-                type="submit"
-              >
-                {spinner ? (
-                  <Spinner color="info" size="xs" />
-                ) : (
-                  "Update Product data"
-                )}
-              </Button>
-            </Form>
-          </Formik>
-        </div>
-      ) : (
-        children
-      )}
-      {updateData || (
-        <div className="mt-2 flex justify-center">
+    <div className="flex flex-col gap-2 md:flex-row">
+      <div className="w-full md:w-2/5">
+        {!updateImage && image ? (
+          <figure>
+            <Image
+              className="mx-auto"
+              src={image}
+              alt={productName}
+              title={productName}
+              width={300}
+              height={150}
+            />
+          </figure>
+        ) : (
+          <ImageUpload folder="product" setImageData={setThumbnailImg} />
+        )}
+        {image && (
+          <div className="my-4 flex justify-center">
+            <Button
+              className="mx-auto block"
+              onClick={() => setUpdateImage((l) => !l)}
+              size="sm"
+              variant="cancel"
+            >
+              {updateImage ? "Cancel" : "Change"}
+            </Button>
+          </div>
+        )}
+      </div>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={addProductSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form className="w-full md:w-3/5">
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+            <Input
+              name="productName"
+              type="text"
+              placeholder="Product name"
+              label="Product name"
+              disabled={spinner}
+              required
+            />
+            <Input
+              name="quantity"
+              type="text"
+              placeholder="Product quantity"
+              label="Product quantity"
+              disabled={spinner}
+              required
+            />
+            <Input
+              name="cost"
+              type="text"
+              placeholder="Product cost price"
+              label="Product cost price"
+              disabled={spinner}
+              required
+            />
+            <Input
+              name="sell"
+              type="text"
+              placeholder="Product sell price"
+              label="Product sell price"
+              disabled={spinner}
+              required
+            />
+          </div>
           <Button
-            onClick={() => setUpdateData((prop) => !prop)}
+            className="mt-2"
             variant="confirm"
+            disabled={spinner}
+            type="submit"
           >
-            Update product
+            {spinner ? (
+              <Spinner color="info" size="xs" />
+            ) : (
+              "Update Product data"
+            )}
           </Button>
-        </div>
-      )}
-    </>
+        </Form>
+      </Formik>
+    </div>
   );
 };
 
