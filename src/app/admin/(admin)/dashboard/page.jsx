@@ -1,29 +1,57 @@
 import StatsItem from "@/components/StatsItem";
+import getInvoiceStats from "@/lib/data/getInvoiceStats";
 import getProductStats from "@/lib/data/getProductStats";
+import invoiceId from "@/lib/utils/invoiceId";
 import Link from "next/link";
 
 const DashboardPage = async () => {
-  const data = await getProductStats();
+  const productData = await getProductStats();
+  const invoiceData = await getInvoiceStats();
+
   return (
     <div>
       <div className="mb-4 flex flex-wrap gap-4">
-        <StatsItem text="Total Product Cost" data={`${data?.totalCost}৳`} />
-        <StatsItem text="Total Stock" data={data?.totalStock} />
+        <StatsItem
+          text="Total Product Cost"
+          data={`${productData?.totalCost}৳`}
+        />
+        <StatsItem text="Total Stock" data={productData?.totalStock} />
+        <StatsItem text="Sells" data={`${invoiceData?.totalSells}৳`} />
       </div>
-      <div className="w-full md:w-1/2">
-        <div>Last product added:</div>
-        <div className="flex items-center gap-4 rounded border border-gray-400 bg-gray-100 px-4 py-2 text-sm dark:border-gray-600 dark:bg-gray-700">
+      <div className="flex w-full flex-col gap-4 md:flex-row">
+        <Item title="product added">
           <div>1.</div>
           <Link
-            href={`/admin/inventory/${data?.id}`}
+            href={`/admin/inventory/${productData?.id}`}
             className="flex-1 hover:text-blue-500 hover:underline"
           >
-            {data?.productName}
+            {productData?.productName}
           </Link>
-          <div>Qunatity: {data?.quantity} item</div>
-          <div>Cost: {data?.cost}৳</div>
-          <div>Sell: {data?.sell}৳</div>
-        </div>
+          <div>Qunatity: {productData?.quantity} item</div>
+          <div>Cost: {productData?.cost}৳</div>
+          <div>Sell: {productData?.sell}৳</div>
+        </Item>
+        <Item title="Invoice added">
+          <div>1.</div>
+          <Link
+            href={`/admin/invoice/${invoiceId(invoiceData?.id)}`}
+            className="flex-1 hover:text-blue-500 hover:underline"
+          >
+            {invoiceId(invoiceData?.invoiceId)}
+          </Link>
+          <div>Total sell: {invoiceData?.totalPrice}৳</div>
+        </Item>
+      </div>
+    </div>
+  );
+};
+
+const Item = ({ title, children }) => {
+  return (
+    <div className="w-full">
+      <div>Last {title}:</div>
+      <div className="flex items-center gap-4 rounded border border-gray-400 bg-gray-100 px-4 py-2 text-sm dark:border-gray-600 dark:bg-gray-700">
+        {children}
       </div>
     </div>
   );
