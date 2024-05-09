@@ -1,5 +1,6 @@
 "use client";
 import ActionMenu from "@/components/ActionMenu";
+import deleteInvoice from "@/lib/actions/invoice/deleteInvoice";
 import revalidate from "@/lib/actions/revalidation";
 import Alert from "@/lib/config/alert.config";
 import { useRouter } from "next/navigation";
@@ -27,10 +28,10 @@ const Action = ({ invoiceId }) => {
         },
       });
       try {
-        // const { data } = await deleteData(`/product/${productId}`);
-        // if (data.deletedCount !== 1) {
-        //   throw new Error("Something went wrong");
-        // }
+        const res = await deleteInvoice(invoiceId);
+        if (!res) {
+          throw "Error";
+        }
         Alert.fire({
           icon: "success",
           title: "Invoice is deleted!",
