@@ -128,11 +128,13 @@ const InvoiceForm = ({ invoiceId }) => {
           </div>
         </div>
         <ProductInput disabled={spinner} />
-        <div>
+        <div className="mt-4 flex flex-col items-end gap-4">
           <TotalPrice />
-          <Button size="sm" variant="primary" disabled={spinner} type="submit">
-            Make Invoice
-          </Button>
+          <div className="w-full max-w-60">
+            <Button variant="primary" disabled={spinner} type="submit">
+              Make Invoice
+            </Button>
+          </div>
         </div>
       </Form>
     </Formik>
@@ -147,7 +149,7 @@ const TotalPrice = () => {
     0,
   );
 
-  return <div className="ml-auto w-full max-w-60">Total price: {sum || 0}</div>;
+  return <div className=" w-full max-w-60">Total price: {sum || 0}</div>;
 };
 
 const ProductInput = ({ disabled }) => {

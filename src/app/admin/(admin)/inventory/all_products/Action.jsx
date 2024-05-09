@@ -1,7 +1,6 @@
 "use client";
 import ActionMenu from "@/components/ActionMenu";
 import { useEdgeStore } from "@/context/EdgeStoreContext";
-import deleteData from "@/lib/CURD/deleteData";
 import revalidate from "@/lib/actions/revalidation";
 import Alert from "@/lib/config/alert.config";
 import { useRouter } from "next/navigation";
@@ -29,10 +28,10 @@ const Action = ({ productId, imageUrl }) => {
         },
       });
       try {
-        const { data } = await deleteData(`/product/${productId}`);
-        if (data.deletedCount !== 1) {
-          throw new Error("Something went wrong");
-        }
+        // const { data } = await deleteData(`/product/${productId}`);
+        // if (data.deletedCount !== 1) {
+        //   throw new Error("Something went wrong");
+        // }
         await edgestore.dtrInoiceImages.delete({
           url: imageUrl,
         });

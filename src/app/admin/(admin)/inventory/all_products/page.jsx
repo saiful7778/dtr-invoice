@@ -5,6 +5,9 @@ import Link from "next/link";
 import Button from "@/components/Button";
 import ReloadButton from "@/components/ReloadButton";
 import db from "@/lib/db";
+import DownloadData from "@/components/DownloadData";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "All product - DTR-Invoice",
@@ -27,7 +30,7 @@ const AllProductPage = async () => {
   const allProductData = await getAllProducts();
   return (
     <>
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <div className="text-sm">
           Total Products: <span>{allProductData.length}</span>
         </div>
@@ -39,6 +42,7 @@ const AllProductPage = async () => {
         >
           Add Project
         </Button>
+        <DownloadData inputData={allProductData} />
         <ReloadButton revalidatePath="/admin/inventory/all_products" />
       </div>
       <Table>
