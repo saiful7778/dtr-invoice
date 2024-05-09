@@ -10,8 +10,8 @@ import DownloadData from "@/components/DownloadData";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "All product - DTR-Invoice",
-  description: "This is inventory all product management page.",
+  title: "All products - DTR-Invoice",
+  description: "This is inventory all product management page of DTR-Invoice.",
 };
 
 async function getAllProducts() {

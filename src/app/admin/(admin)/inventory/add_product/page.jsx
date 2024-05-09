@@ -3,7 +3,7 @@ import useAuth from "@/hooks/useAuth";
 
 export const metadata = {
   title: "Add product - DTR-Invoice",
-  description: "This is inventory product add page.",
+  description: "This is inventory product add page of DTR-Invoice.",
 };
 
 const ProductAddPage = async () => {

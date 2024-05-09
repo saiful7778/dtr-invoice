@@ -3,8 +3,8 @@ import InvoiceForm from "./InvoiceForm";
 import db from "@/lib/db";
 
 export const metadata = {
-  title: "Invoice - DTR-Invoice",
-  description: "This is invoice making page.",
+  title: "Add Invoice - DTR-Invoice",
+  description: "This is invoice making page of DTR-Invoice.",
 };
 
 async function getInvoiceNumber() {

@@ -58,14 +58,6 @@ const Sidebar = () => {
               All Invoices
             </SidebarDropdownItem>
           </SidebarDropdown>
-          <hr className="border-gray-300 dark:border-gray-700" />
-          <SidebarItem
-            path="/admin/settings"
-            textShow={sidebar}
-            icon={<IoSettingsOutline />}
-          >
-            Settings
-          </SidebarItem>
         </ul>
       </nav>
     </div>

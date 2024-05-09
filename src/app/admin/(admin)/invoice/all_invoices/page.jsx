@@ -9,6 +9,11 @@ import Action from "./Action";
 
 export const dynamic = "force-dynamic";
 
+export const metadata = {
+  title: "All invoices - DTR-Invoice",
+  description: "This is all invoices management page of DTR-Invoice",
+};
+
 async function getAllInvoices() {
   try {
     const data = await db.invoice.findMany({ include: { customer: true } });
