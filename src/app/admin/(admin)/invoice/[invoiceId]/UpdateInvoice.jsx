@@ -1,37 +1,35 @@
 "use client";
-import { Input } from "@/components/formik/Input";
-import { Form, Formik } from "formik";
-import { DatePicker, Label } from "keep-react";
-import { useState } from "react";
-import { invoiceSchema } from "@/lib/schemas/invoice";
-import Alert from "@/lib/config/alert.config";
-import { input } from "@/lib/styles";
-import Button from "@/components/Button";
-import createInvoice from "@/lib/actions/invoice/createInvoice";
-import ProductInput from "@/components/invoice/ProductInput";
-import TotalPrice from "@/components/invoice/TotalPrice";
 import InvoiceDataForm from "@/components/invoice/InvoiceDataForm";
-import revalidate from "@/lib/actions/revalidation";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import getinvoiceId from "@/lib/utils/invoiceId";
+import revalidate from "@/lib/actions/revalidation";
+import Alert from "@/lib/config/alert.config";
+import updateInvoice from "@/lib/actions/invoice/updateInvoice";
 
-const InvoiceForm = ({ invoiceId }) => {
+const UpdateInvoice = ({ inputData }) => {
   const [spinner, setSpinner] = useState(false);
   const router = useRouter();
-  const [date, setDate] = useState(new Date());
+  const {
+    id,
+    invoiceId,
+    customer: { name, address },
+    products,
+    invoiceDate,
+  } = inputData;
+  const [date, setDate] = useState(new Date(invoiceDate));
 
   const initialValues = {
-    invoiceId: invoiceId,
-    name: "",
-    address: "",
-    products: [
-      {
-        productId: "",
-        productName: "",
-        quantity: 0,
-        price: 0,
-        totalPrice: 0,
-      },
-    ],
+    invoiceId: getinvoiceId(invoiceId),
+    name: name,
+    address: address,
+    products: products.map((ele) => ({
+      productId: ele.productId,
+      productName: ele.product.productName,
+      quantity: ele.quantity,
+      price: ele.product.sell,
+      totalPrice: ele.totalPrice,
+    })),
   };
 
   const handleReset = (resetForm) => {
@@ -60,10 +58,10 @@ const InvoiceForm = ({ invoiceId }) => {
           0,
         ),
       };
-      await createInvoice({ name: e.name, address: e.address }, invoiceData);
+      await updateInvoice(id, invoiceData);
       Alert.fire({
         icon: "success",
-        title: "Invoice is created!",
+        title: "Invoice is Updated!",
       });
       await revalidate("/admin/invoice/all_invoices");
       router.push("/admin/invoice/all_invoices");
@@ -83,9 +81,9 @@ const InvoiceForm = ({ invoiceId }) => {
       setDate={setDate}
       handleSubmit={handleSubmit}
       spinner={spinner}
-      buttonText="Make invoice"
+      buttonText="Update invoice"
     />
   );
 };
 
-export default InvoiceForm;
+export default UpdateInvoice;

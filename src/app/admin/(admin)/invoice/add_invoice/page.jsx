@@ -23,14 +23,12 @@ async function getInvoiceNumber() {
 }
 
 const InvoicePage = async () => {
-  const { invoiceId } = await getInvoiceNumber();
+  const invoiceId = await getInvoiceNumber();
   return (
     <>
       <h1 className="text-center">DTR-Invoice</h1>
       <InvoiceForm
-        invoiceId={
-          invoiceId ? (invoiceId + 1).toString().padStart(5, "0") : "00001"
-        }
+        invoiceId={invoiceId ? invoiceId(invoiceId?.invoiceId + 1) : "00001"}
       />
     </>
   );
