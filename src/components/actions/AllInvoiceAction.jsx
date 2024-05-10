@@ -28,21 +28,24 @@ const AllInvoiceAction = ({ invoiceId }) => {
       });
       try {
         const res = await deleteInvoice(invoiceId);
-        if (!res) {
-          throw "Error";
+        if (!res.success) {
+          Alert.fire({
+            icon: "error",
+            text: res.message,
+          });
+          return;
         }
         Alert.fire({
           icon: "success",
           title: "Invoice is deleted!",
         });
-      } catch (err) {
-        console.error(err);
+      } catch {
         Alert.fire({
           icon: "error",
           text: "Something went wrong",
         });
       } finally {
-        revalidate("/admin/invoice/all_invoices");
+        await revalidate("/admin/invoice/all_invoices");
       }
     }
   };

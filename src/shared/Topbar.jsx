@@ -1,5 +1,4 @@
 "use client";
-// import Button from "@/components/utilities/Button";
 import siteLogo from "../../public/site-logo.png";
 import { LuMenuSquare } from "react-icons/lu";
 import Image from "next/image";
@@ -70,20 +69,20 @@ const Topbar = () => {
                     </li>
                   </ul>
                   <Link
-                    className="my-1 block w-full rounded p-1 text-center text-sm hover:bg-gray-300 dark:hover:bg-gray-600"
+                    className="block w-full rounded p-1 text-center text-sm hover:bg-gray-300 dark:hover:bg-gray-600"
                     href="/"
                   >
                     Home
                   </Link>
                   <Link
-                    className="my-1 block w-full rounded p-1 text-center text-sm hover:bg-gray-300 dark:hover:bg-gray-600"
+                    className="block w-full rounded p-1 text-center text-sm hover:bg-gray-300 dark:hover:bg-gray-600"
                     href="/admin/profile"
                   >
                     Profile
                   </Link>
                   <Button
                     onClick={async () => await signOut()}
-                    className="mt-1 w-full"
+                    className="w-full"
                     variant="cancel"
                     size="xs"
                   >

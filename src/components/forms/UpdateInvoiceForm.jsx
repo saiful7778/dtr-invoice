@@ -58,7 +58,14 @@ const UpdateInvoiceForm = ({ inputData }) => {
           0,
         ),
       };
-      await updateInvoice(id, invoiceData);
+      const res = await updateInvoice(id, invoiceData);
+      if (!res.success) {
+        Alert.fire({
+          icon: "error",
+          text: res.message,
+        });
+        return;
+      }
       Alert.fire({
         icon: "success",
         title: "Invoice is Updated!",

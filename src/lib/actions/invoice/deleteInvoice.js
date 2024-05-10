@@ -9,8 +9,21 @@ export default async function deleteInvoice(id) {
         id,
       },
     });
-    return data;
-  } catch (err) {
-    throw new Error(err);
+    if (!data) {
+      return {
+        success: false,
+        message: "Invoice is not deleted",
+      };
+    }
+
+    return {
+      success: true,
+      message: "Invoice is deleted",
+    };
+  } catch {
+    return {
+      success: false,
+      message: "Something went wrong",
+    };
   }
 }

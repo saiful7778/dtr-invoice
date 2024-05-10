@@ -1,7 +1,6 @@
 import { focus } from "@/lib/styles";
 import cn from "@/lib/utils/cn";
 import { useField } from "formik";
-import React from "react";
 
 const style = {
   base: "w-full bg-transparent focus:outline-none text-body-4 placeholder:font-normal placeholder:text-gray-500 disabled:cursor-not-allowed disabled:opacity-50",
