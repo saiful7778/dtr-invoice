@@ -3,7 +3,7 @@ import db from "@/lib/db";
 
 export default async function getInvoiceStats() {
   try {
-    const [[totalSells], sec] = await db.$transaction([
+    const [[totalSells], sec, allInvoice] = await db.$transaction([
       db.invoice.aggregateRaw({
         pipeline: [
           {
@@ -31,8 +31,31 @@ export default async function getInvoiceStats() {
           totalPrice: true,
         },
       }),
+      db.invoice.findMany({
+        include: {
+          products: {
+            include: {
+              product: true,
+            },
+          },
+        },
+      }),
     ]);
-    return { ...totalSells, ...sec };
+
+    const profit = allInvoice?.reduce(
+      (sum1, curr1) =>
+        sum1 +
+        curr1?.products?.reduce(
+          (sum2, curr2) =>
+            sum2 +
+            (curr2.quantity * curr2.product.sell -
+              curr2.quantity * curr2.product.cost),
+          0,
+        ),
+      0,
+    );
+
+    return { ...totalSells, ...sec, profit };
   } catch (err) {
     throw new Error(err);
   }

@@ -33,7 +33,13 @@ const DashboardPage = async () => {
         )}
 
         {hasInvoiceData && (
-          <StatsItem text="Sells" data={`${invoiceData?.totalSells}৳`} />
+          <>
+            <StatsItem
+              text="Total Sells"
+              data={`${invoiceData?.totalSells}৳`}
+            />
+            <StatsItem text="Total Profit" data={`${invoiceData?.profit}৳`} />
+          </>
         )}
       </div>
       <div className="flex w-full flex-col gap-4 md:flex-row">
