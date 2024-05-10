@@ -79,6 +79,7 @@ const UpdateInvoice = ({ inputData }) => {
     <InvoiceDataForm
       initialValues={initialValues}
       setDate={setDate}
+      date={date}
       handleSubmit={handleSubmit}
       spinner={spinner}
       buttonText="Update invoice"

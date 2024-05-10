@@ -73,6 +73,7 @@ const InvoiceForm = ({ invoiceId }) => {
     <InvoiceDataForm
       initialValues={initialValues}
       setDate={setDate}
+      date={date}
       handleSubmit={handleSubmit}
       spinner={spinner}
       buttonText="Make invoice"

@@ -1,6 +1,7 @@
 import React from "react";
 import InvoiceForm from "./InvoiceForm";
 import db from "@/lib/db";
+import getInvoiceId from "@/lib/utils/invoiceId";
 
 export const metadata = {
   title: "Add Invoice - DTR-Invoice",
@@ -28,7 +29,7 @@ const InvoicePage = async () => {
     <>
       <h1 className="text-center">DTR-Invoice</h1>
       <InvoiceForm
-        invoiceId={invoiceId ? invoiceId(invoiceId?.invoiceId + 1) : "00001"}
+        invoiceId={invoiceId ? getInvoiceId(invoiceId?.invoiceId + 1) : "00001"}
       />
     </>
   );

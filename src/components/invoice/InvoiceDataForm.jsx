@@ -11,6 +11,7 @@ import TotalPrice from "./TotalPrice";
 const InvoiceDataForm = ({
   initialValues,
   setDate,
+  date,
   handleSubmit,
   spinner,
   buttonText,
@@ -57,7 +58,9 @@ const InvoiceDataForm = ({
               <Label className={input.label}>Invoice date</Label>
               <DatePicker
                 className="border-gray-500 bg-transparent p-2"
-                singleDate={setDate}
+                // singleDate={setDate}
+                selected={date}
+                onSelect={setDate}
                 placeholder="Date / Month / Year"
               >
                 <DatePicker.SingleDate />
