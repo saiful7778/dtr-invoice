@@ -2,7 +2,7 @@
 import Image from "next/image";
 import siteLogo from "../../public/site-logo.png";
 import Link from "next/link";
-import { navLinks } from "@/staticData";
+import { navLinks } from "@/lib/staticData";
 import { usePathname } from "next/navigation";
 import cn from "@/lib/utils/cn";
 import { Avatar, Spinner } from "keep-react";

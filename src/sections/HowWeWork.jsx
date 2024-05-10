@@ -1,5 +1,5 @@
 import PointCard from "@/components/PointCard";
-import { keyFeature } from "@/staticData";
+import { keyFeature } from "@/lib/staticData";
 
 const HowWeWork = () => {
   return (
