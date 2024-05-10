@@ -14,10 +14,16 @@ model User {
   emailVerified  DateTime?
   hashedPassword String?
   image          String?
+  role           Role      @default(user)
   accounts       Account[]
+  Product        Product[]
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
-  Product        Product[]
+}
+
+enum Role {
+  user
+  admin
 }
 
 model Account {
@@ -40,11 +46,6 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
-}
-
-enum Role {
-  user
-  admin
 }
 
 model Product {
