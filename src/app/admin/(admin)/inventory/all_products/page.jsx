@@ -1,11 +1,11 @@
 import Table from "@/components/table";
-import Action from "./Action";
 import moment from "moment";
 import Link from "next/link";
 import Button from "@/components/Button";
 import ReloadButton from "@/components/ReloadButton";
 import db from "@/lib/db";
 import DownloadData from "@/components/DownloadData";
+import AllProductAction from "@/components/actions/AllProductAction";
 
 export const dynamic = "force-dynamic";
 
@@ -102,7 +102,7 @@ const TableRow = ({ count, inputData }) => {
         </div>
       </Table.cell>
       <Table.cell>
-        <Action productId={id} imageUrl={image} />
+        <AllProductAction productId={id} imageUrl={image} />
       </Table.cell>
     </Table.row>
   );

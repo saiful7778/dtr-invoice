@@ -5,7 +5,7 @@ import Table from "@/components/table";
 import db from "@/lib/db";
 import moment from "moment";
 import Link from "next/link";
-import Action from "./Action";
+import AllInvoiceAction from "@/components/actions/AllInvoiceAction";
 
 export const dynamic = "force-dynamic";
 
@@ -123,7 +123,7 @@ const TableRow = ({ count, inputData }) => {
         </div>
       </Table.cell>
       <Table.cell>
-        <Action invoiceId={id} />
+        <AllInvoiceAction invoiceId={id} />
       </Table.cell>
     </Table.row>
   );

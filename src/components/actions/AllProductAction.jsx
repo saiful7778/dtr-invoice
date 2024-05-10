@@ -1,16 +1,17 @@
 "use client";
 import ActionMenu from "@/components/ActionMenu";
-import deleteInvoice from "@/lib/actions/invoice/deleteInvoice";
+import { useEdgeStore } from "@/context/EdgeStoreContext";
+import deleteProduct from "@/lib/actions/product/deleteProduct";
 import revalidate from "@/lib/actions/revalidation";
 import Alert from "@/lib/config/alert.config";
 import { useRouter } from "next/navigation";
-import React from "react";
 
-const Action = ({ invoiceId }) => {
+const AllProductAction = ({ productId, imageUrl }) => {
   const router = useRouter();
+  const { edgestore } = useEdgeStore();
 
   const handleUpdate = () => {
-    router.push(`/admin/invoice/${invoiceId}`);
+    router.push(`/admin/inventory/${productId}`);
   };
 
   const handleDelete = async () => {
@@ -28,26 +29,34 @@ const Action = ({ invoiceId }) => {
         },
       });
       try {
-        const res = await deleteInvoice(invoiceId);
-        if (!res) {
-          throw "Error";
+        const res = await deleteProduct(productId);
+        if (!res.success) {
+          Alert.fire({
+            icon: "error",
+            text: res.message,
+          });
+          return;
+        }
+        if (imageUrl) {
+          await edgestore.dtrInoiceImages.delete({
+            url: imageUrl,
+          });
         }
         Alert.fire({
           icon: "success",
-          title: "Invoice is deleted!",
+          title: "Product is deleted!",
         });
-      } catch (err) {
-        console.error(err);
+      } catch {
         Alert.fire({
           icon: "error",
           text: "Something went wrong",
         });
       } finally {
-        revalidate("/admin/invoice/all_invoices");
+        await revalidate("/admin/inventory/all_products");
       }
     }
   };
   return <ActionMenu handleUpdate={handleUpdate} handleDelete={handleDelete} />;
 };
 
-export default Action;
+export default AllProductAction;
