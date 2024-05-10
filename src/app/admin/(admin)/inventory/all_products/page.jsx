@@ -40,9 +40,9 @@ const AllProductPage = async () => {
           variant="primary-outline"
           size="sm"
         >
-          Add Project
+          Add Product
         </Button>
-        <DownloadData inputData={allProductData} />
+        <DownloadData inputData={{ allProductData }} fileName="products" />
         <ReloadButton revalidatePath="/admin/inventory/all_products" />
       </div>
       <Table>

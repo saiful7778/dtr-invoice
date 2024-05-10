@@ -1,21 +1,25 @@
 "use client";
 import Button from "./Button";
 
-const DownloadData = ({ inputData }) => {
+const DownloadData = ({ inputData, fileName }) => {
   const handleDownload = () => {
-    const url = window.URL.createObjectURL(
-      new Blob([JSON.stringify(inputData)], { type: "text/json" }),
-    );
+    const blob = new Blob([JSON.stringify(inputData)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "data.json");
+
+    link.setAttribute("href", url);
+    link.setAttribute("download", `${fileName}.json`);
+
     document.body.appendChild(link);
     link.click();
-    link.parentNode.removeChild(link);
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   return (
-    <Button onClick={handleDownload} variant="primary" size="sm" download>
+    <Button onClick={handleDownload} variant="primary" size="sm">
       Download json
     </Button>
   );

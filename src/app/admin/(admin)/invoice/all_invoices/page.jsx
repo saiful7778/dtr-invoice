@@ -42,7 +42,7 @@ const allInvoice = async () => {
         >
           Add Invoice
         </Button>
-        <DownloadData inputData={allInvoice} />
+        <DownloadData inputData={{ allInvoice }} fileName="invoice" />
         <ReloadButton revalidatePath="/admin/invoice/all_invoices" />
       </div>
       <Table>
