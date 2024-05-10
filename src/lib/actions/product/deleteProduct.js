@@ -7,8 +7,20 @@ export default async function deleteProduct(id) {
     const data = await db.product.delete({
       where: { id },
     });
-    return data;
-  } catch (err) {
-    throw new Error(err);
+    if (!data) {
+      return {
+        success: false,
+        message: "Product is not deleted",
+      };
+    }
+    return {
+      success: true,
+      message: "Product is deleted",
+    };
+  } catch {
+    return {
+      success: false,
+      message: "Something went wrong",
+    };
   }
 }

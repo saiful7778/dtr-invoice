@@ -1,5 +1,6 @@
 import db from "@/lib/db";
-import UpdateProduct from "./UpdateProduct";
+import UpdateProductForm from "@/components/forms/UpdateProductForm";
+import { Avatar } from "keep-react";
 
 async function getProduct(productId) {
   try {
@@ -34,7 +35,22 @@ export async function generateMetadata({ params: { productId } }) {
 
 const SingleProduct = async ({ params: { productId } }) => {
   const productData = await getProduct(productId);
-  return <UpdateProduct productData={productData} />;
+  return (
+    <UpdateProductForm productData={productData}>
+      <div className="text-xs">Created by: </div>
+      <div className="mt-1 flex items-center gap-2 text-sm">
+        <Avatar size="lg" img={productData.createdBy?.image} />
+        <div>
+          <div className="text-lg font-bold leading-none">
+            {productData.createdBy?.name}
+          </div>
+          <div className="leading-none text-gray-600 dark:text-gray-400">
+            {productData.createdBy?.email}
+          </div>
+        </div>
+      </div>
+    </UpdateProductForm>
+  );
 };
 
 export default SingleProduct;

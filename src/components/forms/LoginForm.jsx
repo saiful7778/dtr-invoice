@@ -2,6 +2,7 @@
 import Button from "@/components/Button";
 import { Input } from "@/components/formik/Input";
 import Password from "@/components/formik/Password";
+import { DEFAULT_LOGIN } from "@/lib/routes";
 import { loginSchema } from "@/lib/schemas/authentication";
 import { Form, Formik } from "formik";
 import { Spinner } from "keep-react";
@@ -26,18 +27,13 @@ const LoginForm = ({ searchParams }) => {
   const handleSubmit = async (e, { resetForm }) => {
     setSpinner(true);
     const reset = handleReset(resetForm);
-    try {
-      await signIn("credentials", {
-        email: e.email,
-        password: e.password,
-        redirect: true,
-        callbackUrl: searchParams?.callbackUrl || "/admin/dashboard",
-      });
-    } catch (err) {
-      console.error(err);
-    } finally {
-      reset();
-    }
+    await signIn("credentials", {
+      email: e.email,
+      password: e.password,
+      redirect: true,
+      callbackUrl: searchParams?.callbackUrl || DEFAULT_LOGIN,
+    });
+    reset();
   };
 
   return (

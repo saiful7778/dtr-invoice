@@ -1,5 +1,4 @@
 "use client";
-
 import Button from "@/components/Button";
 import ImageUpload from "@/components/ImageUpload";
 import { Input } from "@/components/formik/Input";
@@ -14,7 +13,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const UpdateProduct = ({ productData }) => {
+const UpdateProductForm = ({ productData, children }) => {
   const { id, image, productName, quantity, cost, sell } = productData;
   const [spinner, setSpinner] = useState(false);
   const [updateImage, setUpdateImage] = useState(false);
@@ -62,21 +61,39 @@ const UpdateProduct = ({ productData }) => {
         await edgestore.dtrInoiceImages.confirmUpload({
           url: thumbnailImg.url,
         });
-        await updateProductData(id, {
+        const res = await updateProduct(id, {
           image: thumbnailImg.url,
           productName: e.productName,
           quantity: +e.quantity,
           cost: +e.cost,
           sell: +e.sell,
         });
+        if (!res.success) {
+          Alert.fire({
+            icon: "error",
+            text: res.message,
+          });
+          return;
+        }
       } else {
-        await updateProductData(id, {
+        const res = await updateProduct(id, {
           productName: e.productName,
           quantity: +e.quantity,
           cost: +e.cost,
           sell: +e.sell,
         });
+        if (!res.success) {
+          Alert.fire({
+            icon: "error",
+            text: res.message,
+          });
+          return;
+        }
       }
+      Alert.fire({
+        icon: "success",
+        title: "Product is updated!",
+      });
       await revalidate("/admin/inventory/all_products");
       router.push("/admin/inventory/all_products");
     } catch {
@@ -118,70 +135,61 @@ const UpdateProduct = ({ productData }) => {
           </div>
         )}
       </div>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={addProductSchema}
-        onSubmit={handleSubmit}
-      >
-        <Form className="w-full md:w-3/5">
-          <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-            <Input
-              name="productName"
-              type="text"
-              placeholder="Product name"
-              label="Product name"
+      <div className="w-full md:w-3/5">
+        {children}
+        <Formik
+          initialValues={initialValues}
+          validationSchema={addProductSchema}
+          onSubmit={handleSubmit}
+        >
+          <Form className="mt-2">
+            <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+              <Input
+                name="productName"
+                type="text"
+                placeholder="Product name"
+                label="Product name"
+                disabled={spinner}
+                required
+              />
+              <Input
+                name="quantity"
+                type="text"
+                placeholder="Product quantity"
+                label="Product quantity"
+                disabled={spinner}
+                required
+              />
+              <Input
+                name="cost"
+                type="text"
+                placeholder="Product cost price"
+                label="Product cost price"
+                disabled={spinner}
+                required
+              />
+              <Input
+                name="sell"
+                type="text"
+                placeholder="Product sell price"
+                label="Product sell price"
+                disabled={spinner}
+                required
+              />
+            </div>
+            <Button
+              className="mt-2"
+              variant="confirm"
               disabled={spinner}
-              required
-            />
-            <Input
-              name="quantity"
-              type="text"
-              placeholder="Product quantity"
-              label="Product quantity"
-              disabled={spinner}
-              required
-            />
-            <Input
-              name="cost"
-              type="text"
-              placeholder="Product cost price"
-              label="Product cost price"
-              disabled={spinner}
-              required
-            />
-            <Input
-              name="sell"
-              type="text"
-              placeholder="Product sell price"
-              label="Product sell price"
-              disabled={spinner}
-              required
-            />
-          </div>
-          <Button
-            className="mt-2"
-            variant="confirm"
-            disabled={spinner}
-            type="submit"
-          >
-            {spinner ? (
-              <Spinner color="info" size="xs" />
-            ) : (
-              "Update Product data"
-            )}
-          </Button>
-        </Form>
-      </Formik>
+              type="submit"
+            >
+              {spinner ? <Spinner color="info" size="xs" /> : "Update Product"}
+            </Button>
+          </Form>
+        </Formik>
+      </div>
     </div>
   );
 };
 
-async function updateProductData(id, productData) {
-  await updateProduct(id, productData);
-  Alert.fire({
-    icon: "success",
-    title: "Product is updated!",
-  });
-}
-
-export default UpdateProduct;
+export default UpdateProductForm;

@@ -1,11 +1,12 @@
 "use client";
+import { DEFAULT_LOGIN } from "@/lib/routes";
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 
 const SocialAuth = () => {
   const handleSign = async (provider) => {
     await signIn(provider, {
-      callbackUrl: "/admin/dashboard",
+      callbackUrl: DEFAULT_LOGIN,
     });
   };
   return (

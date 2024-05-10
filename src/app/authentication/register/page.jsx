@@ -1,8 +1,8 @@
 import Link from "next/link";
-import RegisterForm from "./RegisterForm";
 import Image from "next/image";
 import BannerImage from "../../../../public/laptop-user.svg";
 import SocialAuth from "@/components/SocialAuth";
+import RegisterForm from "@/components/forms/RegisterForm";
 
 export const metadata = {
   title: "Register - authentication",

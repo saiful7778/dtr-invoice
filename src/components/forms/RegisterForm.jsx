@@ -8,12 +8,11 @@ import { Spinner } from "keep-react";
 import { useState } from "react";
 import Alert from "@/lib/config/alert.config";
 import Button from "@/components/Button";
-import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { DEFAULT_LOGIN } from "@/lib/routes";
 
 const RegisterForm = () => {
   const [spinner, setSpinner] = useState(false);
-  const router = useRouter();
 
   const initialValues = {
     fullName: "",
@@ -38,10 +37,27 @@ const RegisterForm = () => {
         email: e.email,
         password: e.password,
       };
-      await createUserData(userData);
-      router.push("/authentication/login");
-    } catch (err) {
-      console.error(err);
+      const res = await createUser(userData);
+      if (!res.success) {
+        Alert.fire({
+          icon: "error",
+          text: res.message,
+        });
+        return;
+      }
+      Alert.fire({
+        icon: "success",
+        title: "Account is created!",
+      });
+      setTimeout(() => {
+        signIn("credentials", {
+          email: userData.email,
+          password: userData.password,
+          redirect: true,
+          callbackUrl: DEFAULT_LOGIN,
+        });
+      }, 1000);
+    } catch {
       Alert.fire({
         icon: "error",
         text: "Something went wrong",
@@ -98,20 +114,6 @@ const RegisterForm = () => {
       </Form>
     </Formik>
   );
-};
-
-const createUserData = async (userData) => {
-  await createUser(userData);
-  Alert.fire({
-    icon: "success",
-    title: "Account is created!",
-  });
-  await signIn("credentials", {
-    email: userData.email,
-    password: userData.password,
-    redirect: true,
-    callbackUrl: "/admin/dashboard",
-  });
 };
 
 export default RegisterForm;

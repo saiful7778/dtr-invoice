@@ -1,8 +1,8 @@
 import Link from "next/link";
-import LoginForm from "./LoginForm";
 import SocialAuth from "@/components/SocialAuth";
 import Image from "next/image";
 import BannerImage from "../../../../public/chat-notify.svg";
+import LoginForm from "@/components/forms/LoginForm";
 
 export const metadata = {
   title: "Login - authentication",

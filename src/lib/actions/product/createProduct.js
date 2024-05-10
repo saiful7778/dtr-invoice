@@ -1,13 +1,8 @@
 "use server";
 import db from "@/lib/db";
-import { addProductSchema } from "@/lib/schemas/Product";
 
 export default async function createProduct(productData, userId) {
   try {
-    const isValid = await addProductSchema.isValid(productData);
-    if (!isValid) {
-      throw "Invalid input data";
-    }
     const data = await db.product.create({
       data: {
         ...productData,
@@ -19,10 +14,19 @@ export default async function createProduct(productData, userId) {
       },
     });
     if (!data) {
-      throw "Something went wrong";
+      return {
+        success: false,
+        message: "Product is not created",
+      };
     }
-    return true;
-  } catch (err) {
-    throw new Error(err);
+    return {
+      success: true,
+      message: "Product is created",
+    };
+  } catch {
+    return {
+      success: false,
+      message: "Something went wrong",
+    };
   }
 }

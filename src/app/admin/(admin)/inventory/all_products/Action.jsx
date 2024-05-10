@@ -29,9 +29,13 @@ const Action = ({ productId, imageUrl }) => {
         },
       });
       try {
-        const data = await deleteProduct(productId);
-        if (!data) {
-          throw "Error";
+        const res = await deleteProduct(productId);
+        if (!res.success) {
+          Alert.fire({
+            icon: "error",
+            text: res.message,
+          });
+          return;
         }
         if (imageUrl) {
           await edgestore.dtrInoiceImages.delete({

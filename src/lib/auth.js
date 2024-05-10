@@ -40,8 +40,7 @@ const auth = {
             role: user.role,
             image: user?.image?.url,
           };
-        } catch (err) {
-          console.log(err);
+        } catch {
           return null;
         }
       },
