@@ -1,7 +1,7 @@
 import { FieldArray, useField } from "formik";
 import Button from "../Button";
 import Table from "../table";
-import ProductName from "./ProductName";
+import ProductNameInput from "./ProductNameInput";
 import InputData from "./InputData";
 import { ImBin } from "react-icons/im";
 
@@ -39,17 +39,13 @@ const ProductInput = ({ disabled }) => {
               <Table.headCell className="min-w-24">Total Price</Table.headCell>
             </Table.head>
             <Table.body>
-              {field.value.map(({ productName }, index) => (
+              {field.value.map((_, index) => (
                 <Table.row
                   className="bg-transparent odd:bg-transparent even:bg-transparent hover:bg-transparent"
                   key={"productInput" + index}
                 >
                   <Table.cell>
-                    <ProductName
-                      index={index}
-                      productName={productName}
-                      disabled={disabled}
-                    />
+                    <ProductNameInput index={index} disabled={disabled} />
                   </Table.cell>
                   <Table.cell>
                     <InputData
