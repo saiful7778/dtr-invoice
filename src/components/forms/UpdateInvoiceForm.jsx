@@ -7,7 +7,7 @@ import revalidate from "@/lib/actions/revalidation";
 import Alert from "@/lib/config/alert.config";
 import updateInvoice from "@/lib/actions/invoice/updateInvoice";
 
-const UpdateInvoice = ({ inputData }) => {
+const UpdateInvoiceForm = ({ inputData }) => {
   const [spinner, setSpinner] = useState(false);
   const router = useRouter();
   const {
@@ -87,4 +87,4 @@ const UpdateInvoice = ({ inputData }) => {
   );
 };
 
-export default UpdateInvoice;
+export default UpdateInvoiceForm;

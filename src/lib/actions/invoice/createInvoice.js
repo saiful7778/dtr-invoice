@@ -7,7 +7,10 @@ export default async function createInvoice(customerData, inputData) {
       data: customerData,
     });
     if (!customer?.id) {
-      throw "Customer data not created";
+      return {
+        success: false,
+        message: "Customer data not created",
+      };
     }
 
     const invoice = await db.invoice.create({
@@ -22,8 +25,12 @@ export default async function createInvoice(customerData, inputData) {
     });
 
     if (!invoice?.id) {
-      throw "Invoice data not created";
+      return {
+        success: false,
+        message: "Invoice is not created",
+      };
     }
+
     for (let x of inputData.products.create) {
       await db.product.update({
         where: {
@@ -34,7 +41,14 @@ export default async function createInvoice(customerData, inputData) {
         },
       });
     }
-  } catch (err) {
-    throw new Error(err);
+    return {
+      success: true,
+      message: "Invoice is created",
+    };
+  } catch {
+    return {
+      success: false,
+      message: "Something went wrong",
+    };
   }
 }

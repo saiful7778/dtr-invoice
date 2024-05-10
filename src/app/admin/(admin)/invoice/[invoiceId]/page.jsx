@@ -1,6 +1,6 @@
 import db from "@/lib/db";
 import invoiceIdNum from "@/lib/utils/invoiceId";
-import UpdateInvoice from "./UpdateInvoice";
+import UpdateInvoiceForm from "@/components/forms/UpdateInvoiceForm";
 
 async function getInvoice(invoiceId) {
   try {
@@ -44,7 +44,7 @@ const Invoice = async ({ params: { invoiceId } }) => {
   const data = await getInvoice(invoiceId);
   return (
     <div>
-      <UpdateInvoice inputData={data} />
+      <UpdateInvoiceForm inputData={data} />
     </div>
   );
 };

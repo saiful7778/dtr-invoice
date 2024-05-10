@@ -6,7 +6,7 @@ import InvoiceDataForm from "@/components/invoice/InvoiceDataForm";
 import revalidate from "@/lib/actions/revalidation";
 import { useRouter } from "next/navigation";
 
-const InvoiceForm = ({ invoiceId }) => {
+const AddInvoiceForm = ({ invoiceId }) => {
   const [spinner, setSpinner] = useState(false);
   const router = useRouter();
   const [date, setDate] = useState(new Date());
@@ -52,7 +52,17 @@ const InvoiceForm = ({ invoiceId }) => {
           0,
         ),
       };
-      await createInvoice({ name: e.name, address: e.address }, invoiceData);
+      const res = await createInvoice(
+        { name: e.name, address: e.address },
+        invoiceData,
+      );
+      if (!res.success) {
+        Alert.fire({
+          icon: "error",
+          text: res.message,
+        });
+        return;
+      }
       Alert.fire({
         icon: "success",
         title: "Invoice is created!",
@@ -81,4 +91,4 @@ const InvoiceForm = ({ invoiceId }) => {
   );
 };
 
-export default InvoiceForm;
+export default AddInvoiceForm;
