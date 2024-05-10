@@ -39,6 +39,10 @@ const DashboardPage = async () => {
               data={`${invoiceData?.totalSells}৳`}
             />
             <StatsItem text="Total Profit" data={`${invoiceData?.profit}৳`} />
+            <StatsItem
+              text="Profit"
+              data={`${((parseFloat(invoiceData?.profit) / parseFloat(invoiceData?.totalSells)) * 100).toFixed(1)}%`}
+            />
           </>
         )}
       </div>

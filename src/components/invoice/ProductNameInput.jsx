@@ -1,41 +1,18 @@
 "use client";
 import { useField } from "formik";
-import InputData from "./InputData";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import cn from "@/lib/utils/cn";
+import { focus, input } from "@/lib/styles";
 
-const ProductName = ({ productName, index, disabled }) => {
+const ProductNameInput = ({ index, disabled }) => {
   const priceField = useField({ name: `products[${index}].price` });
   const productField = useField({ name: `products[${index}].productName` });
   const productIdField = useField({ name: `products[${index}].productId` });
+
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [allData, setAllData] = useState([]);
-
-  useEffect(() => {
-    if (productName?.length > 0) {
-      (async () => {
-        try {
-          setIsLoading(true);
-          setIsFetching(true);
-          setIsError(false);
-          const res = await fetch(`/api/product?q=${productName}`);
-          if (!res.ok) {
-            throw new Error("Error");
-          }
-          const data = await res.json();
-          setAllData(data?.data);
-        } catch {
-          setIsError(true);
-        } finally {
-          setIsLoading(false);
-        }
-      })();
-    } else {
-      setAllData([]);
-      setIsFetching(false);
-    }
-  }, [productName]);
 
   const handleProductSet = (productData) => {
     priceField[2].setValue(productData?.sell);
@@ -45,14 +22,50 @@ const ProductName = ({ productName, index, disabled }) => {
     setIsFetching(false);
   };
 
+  const controller = new AbortController();
+  const { signal } = controller;
+
+  const handleChange = async (e) => {
+    const inputValue = e.target.value;
+    productField[2].setValue(inputValue);
+    try {
+      setIsLoading(true);
+      setIsFetching(true);
+      setIsError(false);
+      const res = await fetch(`/api/product?q=${inputValue}`, { signal });
+      if (!res.ok) {
+        setIsError(true);
+      }
+      const data = await res.json();
+      setAllData(data?.data);
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="relative">
-      <InputData
-        placeholder="Product name"
-        name={`products[${index}].productName`}
-        autoComplete="off"
-        disabled={disabled}
-      />
+      <div>
+        <input
+          type="text"
+          className={cn(
+            input.minimal,
+            focus.base,
+            productField[1].error && productField[1].touched && focus.error,
+          )}
+          placeholder="Product name"
+          name={`products[${index}].productName`}
+          value={productField[0].value}
+          autoComplete="off"
+          onChange={handleChange}
+          disabled={disabled}
+        />
+        {productField[1].error && productField[1].touched && (
+          <p className="-mb-1 text-xs text-red-500">{productField[1].error}</p>
+        )}
+      </div>
       {isFetching && (
         <div className="absolute left-0 right-0 top-full z-50 clear-both w-full max-w-xs overflow-hidden rounded border border-gray-400 bg-gray-300 shadow-md dark:border-gray-600 dark:bg-gray-700">
           {isLoading ? (
@@ -78,4 +91,4 @@ const ProductName = ({ productName, index, disabled }) => {
   );
 };
 
-export default ProductName;
+export default ProductNameInput;
