@@ -1,4 +1,4 @@
-import AddProduct from "./AddProduct";
+import AddProductForm from "@/components/forms/AddProductForm";
 import useAuth from "@/hooks/useAuth";
 
 export const metadata = {
@@ -11,7 +11,7 @@ const ProductAddPage = async () => {
   return (
     <>
       <h1 className="mb-2 text-3xl font-bold">Add product</h1>
-      <AddProduct userId={user?.id} />
+      <AddProductForm userId={user?.id} />
     </>
   );
 };

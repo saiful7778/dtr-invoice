@@ -12,7 +12,7 @@ import { Spinner } from "keep-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const AddProduct = ({ userId }) => {
+const AddProductForm = ({ userId }) => {
   const router = useRouter();
   const [spinner, setSpinner] = useState(false);
   const { edgestore } = useEdgeStore();
@@ -61,14 +61,19 @@ const AddProduct = ({ userId }) => {
       };
 
       const res = await createProduct(productData, userId);
-      if (res) {
+      if (!res.success) {
         Alert.fire({
-          icon: "success",
-          title: "Product is created!",
+          icon: "error",
+          text: res.message,
         });
-        await revalidate("/admin/inventory/all_products");
-        router.push("/admin/inventory/all_products");
+        return;
       }
+      Alert.fire({
+        icon: "success",
+        title: "Product is created",
+      });
+      await revalidate("/admin/inventory/all_products");
+      router.push("/admin/inventory/all_products");
     } catch {
       Alert.fire({
         icon: "error",
@@ -136,4 +141,4 @@ const AddProduct = ({ userId }) => {
   );
 };
 
-export default AddProduct;
+export default AddProductForm;
